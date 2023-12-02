@@ -16,15 +16,18 @@ export default async function related(
 
     if (tags === 'all') {
       relatedPosts = (await prisma.post.findMany({
-        select: {
-          url: true,
-          category: true,
-          title: true,
-          image: true,
-          brief: true,
-          tags: true,
-          created_at: true,
-          active: true,
+        // select: {
+        //   url: true,
+        //   category: true,
+        //   title: true,
+        //   image: true,
+        //   brief: true,
+        //   tags: true,
+        //   created_at: true,
+        //   active: true,
+        // },
+        include: {
+          post_translation: true,
         },
         where: {
           active: true,
@@ -32,20 +35,23 @@ export default async function related(
       })) as post[];
     } else {
       relatedPosts = (await prisma.post.findMany({
+        include: {
+          post_translation: true,
+        },
         where: {
           active: true,
           tags: {
             hasSome: sanitizedTags,
           },
         },
-        select: {
-          url: true,
-          title: true,
-          image: true,
-          brief: true,
-          tags: true,
-          created_at: true,
-        },
+        // select: {
+        //   url: true,
+        //   title: true,
+        //   image: true,
+        //   brief: true,
+        //   tags: true,
+        //   created_at: true,
+        // },
       })) as post[];
     }
 

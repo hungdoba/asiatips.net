@@ -10,11 +10,14 @@ export default async function Project(
 
   const posts = await prisma.post.findMany({
     orderBy: [{ created_at: 'desc' }],
-    select: {
-      title: true,
-      brief: true,
-      url: true,
-      active: true,
+    // select: {
+    //   title: true,
+    //   brief: true,
+    //   url: true,
+    //   active: true,
+    // },
+    include: {
+      post_translation: true,
     },
     where: {
       active: true,
