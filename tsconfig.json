@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "typeRoots": ["types/next-auth.d.ts"],
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "noImplicitAny": false,
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "middleware.ts.example",
+    "pages/knowlege/[url].js",
+    "pages/api/post/upload-image.js",
+    "pages/api/post/create.js",
+    "pages/markdown/[url].tsx",
+    "pages/simcards/[slug].js"
+  ],
+  "exclude": ["node_modules"]
+}
