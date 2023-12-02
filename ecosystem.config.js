@@ -12,7 +12,7 @@ module.exports = {
     production: {
       key: 'tokyo.pem',
       user: 'ubuntu',
-      host: '18.182.10.40',
+      host: '35.78.175.119',
       ref: 'origin/main',
       repo: 'git@github.com:hungdoba/asiatips-private.git',
       path: '/home/ubuntu',
