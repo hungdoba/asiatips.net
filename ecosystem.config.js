@@ -11,7 +11,7 @@ module.exports = {
       user: 'ubuntu',
       host: '18.182.10.40',
       ref: 'origin/main',
-      repo: 'git@github.com:hungdoba/asiatips.git',
+      repo: 'git@github.com:hungdoba/asiatips-private.git',
       path: '/home/ubuntu',
       'pre-deploy-local': '',
       'post-deploy':
