@@ -9,20 +9,22 @@ Author: Do Ba Hung
 
 To run the app locally, follow these steps:
 
-1. Clone this repository: `git clone <repository-url>`
-2. Navigate to the project directory: `cd nextjs-blog-app`
+1. Clone this repository: `git clone https://github.com/hungdoba/asiatips.net.git`
+2. Navigate to the project directory: `cd asiatips.net`
 3. Install dependencies: `npm install` or `yarn install`
 4. Start the development server: `npm run dev` or `yarn dev`
 5. Access the app at `http://localhost:3000`
 
-## Usage
-
-[Provide instructions on how to use the app. Include any specific configurations or functionalities users should be aware of.]
-
 ## Technologies Used
 
-- Next.js
-- [List other major technologies or frameworks used in the app]
+- Framework: Next.js
+- Language: TypeScript
+- Styling: Tailwind CSS
+- Database: PostgreSQL (AWS RDS)
+- Database Toolkit: Prisma
+- Storage Service: AWS S3
+- Deployment Environment: Ubuntu 20.04 (AWS EC2)
+- Deployment Management: PM2 Ecosystem
 
 ## Folder Structure
 
@@ -72,23 +74,9 @@ nextjs-blog-app/
 └── ...{other files}
 ```
 
-## Contributing
-
-We welcome contributions! If you'd like to contribute to this project, please follow these guidelines:
-
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/new-feature`)
-3. Make your changes
-4. Test your changes thoroughly
-5. Create a pull request explaining the changes made
-
 ## License
 
-This project is licensed under the [license name]. See the [LICENSE](./LICENSE) file for details.
-
-## Acknowledgements
-
-[List any acknowledgements or credits for third-party libraries, resources, or inspirations used in the app.]
+This project is licensed under the MIT.
 
 ## Contact
 
