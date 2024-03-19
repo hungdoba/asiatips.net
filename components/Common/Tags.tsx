@@ -22,9 +22,9 @@ export default function Tags({
       try {
         let response;
         if (category == null && initTags.length === 0) {
-          response = await fetch('/api/post/tag');
+          response = await fetch('/api/tags');
         } else {
-          response = await fetch(`/api/post/tag/${category}`);
+          response = await fetch(`/api/tags/${category}`);
         }
         const data = await response.json();
         setTags(data);
