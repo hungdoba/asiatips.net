@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model message {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String
+  message    String
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model post {
+  url              String
+  category         String
+  tags             String[]
+  image            String
+  created_at       DateTime           @default(now()) @db.Timestamptz(6)
+  active           Boolean?
+  id               Int                @id @default(autoincrement())
+  post_translation post_translation[]
+}
+
+model post_translation {
+  id              Int    @id @default(autoincrement())
+  post_id         Int?
+  language_code   String
+  title           String
+  brief           String
+  tableOfContents String
+  markdown        String
+  post            post?  @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([post_id, language_code], map: "post_translation_unique")
+}
+
+model subscribe {
+  email      String   @id
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+}
