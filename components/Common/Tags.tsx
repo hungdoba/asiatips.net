@@ -52,7 +52,11 @@ export default function Tags({
     <div className="flex flex-wrap">
       {category && (
         <div className="flex">
-          <span className="tag-label">{formatText(category)}</span>
+          <span
+            className={`bg-orange-200 text-orange-800 border-orange-200 text-xs font-medium mr-2 mb-2 px-2.5 py-0.5 rounded border  hover:cursor-pointer`}
+          >
+            {formatText(category)}
+          </span>
           <p>&#9755;&nbsp;</p>
         </div>
       )}
@@ -60,11 +64,11 @@ export default function Tags({
         <span
           key={id}
           onClick={() => isClickable && redirectToTag(tag)}
-          className={`tag ${
-            highlightedTag === tag
+          className={`${
+            highlightedTag == tag
               ? 'bg-orange-100 text-orange-800 border-orange-400'
               : 'bg-blue-100 text-blue-800 border-blue-400'
-          } ${isClickable ? 'cursor-pointer' : ''}`}
+          }  text-xs mr-2 mb-2 px-2.5 py-0.5 rounded border  hover:cursor-pointer`}
         >
           {tag}
         </span>
