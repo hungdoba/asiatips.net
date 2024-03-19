@@ -30,7 +30,7 @@ export default function Tags({
         setTags(data);
       } catch (error) {
         console.error('Error fetching tags:', error);
-        alert('Error fetching tags');
+        // alert('Error fetching tags');
       }
     };
 

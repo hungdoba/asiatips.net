@@ -50,16 +50,14 @@ export default function Navbar() {
         </label>
 
         <div className="order-1">
-          <Link href="/">
-            <a className="flex items-center tracking-wide">
-              <Image
-                width={120}
-                height={240}
-                src="/logo.png"
-                className="mr-3 lg:h-22 lg:w-42"
-                alt="Asiatips logo"
-              />
-            </a>
+          <Link href="/" className="flex items-center tracking-wide">
+            <Image
+              width={120}
+              height={240}
+              src="/logo.png"
+              className="mr-3 lg:h-22 lg:w-42"
+              alt="Asiatips logo"
+            />
           </Link>
         </div>
 
@@ -71,16 +69,15 @@ export default function Navbar() {
           <ul className="lg:flex items-center justify-between text-base pt-4 lg:pt-0 px-4">
             {NAVIGATION_LINKS.map(({ href, label }) => (
               <li key={href}>
-                <Link href={href}>
-                  <a
-                    className={`inline-block no-underline hover:text-green-900 py-2 md:pl-16 ${
-                      currentUrl === href.substring(1)
-                        ? 'text-blue-600 font-bold'
-                        : ''
-                    }`}
-                  >
-                    {t(label)}
-                  </a>
+                <Link
+                  href={href}
+                  className={`inline-block no-underline hover:text-green-900 py-2 md:pl-16 ${
+                    currentUrl === href.substring(1)
+                      ? 'text-blue-600 font-bold'
+                      : ''
+                  }`}
+                >
+                  {t(label)}
                 </Link>
               </li>
             ))}
