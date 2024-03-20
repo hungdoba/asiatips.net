@@ -11,7 +11,7 @@ import Tags from '@/components/Common/Tags';
 import Navbar from '@/components/Layout/Navbar';
 import Footer from '@/components/Layout/Footer';
 import Admin from '@/components/Layout/Admin';
-import PostCard from '@/components/Card/PostCard';
+import ArticleCard from '@/components/Card/ArticleCard';
 import Subscribe from '@/components/Layout/Subscribe';
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
@@ -77,7 +77,7 @@ function HomePage({ posts }: HomePageProps) {
                         !post.active && 'bg-gray-300'
                       }`}
                     >
-                      <PostCard post={post} />
+                      <ArticleCard post={post} />
                       <Link
                         type="button"
                         href={`/markdown/${post.url}`}
@@ -88,7 +88,7 @@ function HomePage({ posts }: HomePageProps) {
                       </Link>
                     </div>
                   ) : (
-                    <PostCard key={post.url} post={post} />
+                    <ArticleCard key={post.url} post={post} />
                   )
                 )}
             </div>
