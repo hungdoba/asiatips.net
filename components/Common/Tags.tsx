@@ -19,22 +19,18 @@ export default function Tags({
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        let response;
-        if (category == null && initTags.length === 0) {
-          response = await fetch('/api/tags');
-        } else {
-          response = await fetch(`/api/tags/${category}`);
-        }
-        const data = await response.json();
-        setTags(data);
-      } catch (error) {
-        console.error('Error fetching tags:', error);
-        // alert('Error fetching tags');
+      let url = '/api/tags';
+      if (category !== null) {
+        url = `/api/tags/${category}`;
       }
+      const response = await fetch(url);
+      const data = await response.json();
+      setTags(data);
     };
 
-    fetchData();
+    if (category === null && initTags === null) {
+      fetchData();
+    }
   }, [category, initTags]);
 
   const redirectToTag = (tag: any) => {
