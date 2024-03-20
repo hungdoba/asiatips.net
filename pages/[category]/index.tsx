@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { prisma } from '@/ultis/db';
+import { prisma } from '@/utils/db';
 import { post } from '@prisma/client';
-import { convert } from '@/ultis/slugify';
+import { convert } from '@/utils/slugify';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';

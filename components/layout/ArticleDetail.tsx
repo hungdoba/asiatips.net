@@ -15,7 +15,7 @@ import SocialMedia from '../Common/SocialMedia';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import YouTube from '../Control/YouTube';
-import { convert } from '@/ultis/slugify';
+import { convert } from '@/utils/slugify';
 import { Alert } from '../Control/Alert';
 import Underline from '../Control/Underline';
 import Button from '../Control/Button';

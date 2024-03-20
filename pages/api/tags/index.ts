@@ -1,5 +1,5 @@
 import { post } from '@prisma/client';
-import { prisma } from '@/ultis/db';
+import { prisma } from '@/utils/db';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function related(

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { prisma } from '@/ultis/db';
+import { prisma } from '@/utils/db';
 import { post } from '@prisma/client';
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react';

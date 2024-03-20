@@ -1,4 +1,4 @@
-import { prisma } from '@/ultis/db';
+import { prisma } from '@/utils/db';
 import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -6,14 +6,14 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import remarkGfm from 'remark-gfm';
 import remarkToc from 'remark-toc';
 // TODO: recheck remarkEmoji, error not assiable
-import remarkEmoji from 'remark-emoji';
+// import remarkEmoji from 'remark-emoji';
 import remarkImages from 'remark-images';
 
 import rehypeSlug from 'rehype-slug';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeAutolinkHeadings from 'remark-autolink-headings';
 
-import { convert } from '@/ultis/slugify';
+import { convert } from '@/utils/slugify';
 import ArticleDetail from '@/components/Layout/ArticleDetail';
 
 export const getStaticPaths = async () => {
@@ -70,7 +70,7 @@ export const getStaticProps = async (context: any) => {
               [rehypeAutolinkHeadings, { behavior: 'wrap' }],
               rehypeHighlight,
             ],
-            remarkPlugins: [remarkGfm, remarkToc, remarkEmoji, remarkImages],
+            remarkPlugins: [remarkGfm, remarkToc, remarkImages],
           },
         }),
         serialize(viTranslation.tableOfContents, {
@@ -97,7 +97,7 @@ export const getStaticProps = async (context: any) => {
               [rehypeAutolinkHeadings, { behavior: 'wrap' }],
               rehypeHighlight,
             ],
-            remarkPlugins: [remarkGfm, remarkToc, remarkEmoji, remarkImages],
+            remarkPlugins: [remarkGfm, remarkToc, remarkImages],
           },
         }),
         serialize(jaTranslation.tableOfContents, {

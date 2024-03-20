@@ -1,5 +1,5 @@
-import { prisma } from '@/ultis/db';
-import { convert } from '@/ultis/slugify';
+import { prisma } from '@/utils/db';
+import { convert } from '@/utils/slugify';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function Project(

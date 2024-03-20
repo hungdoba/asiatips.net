@@ -1,3 +1,4 @@
+const { hostname } = require('os');
 const { i18n } = require('./next-i18next.config');
 
 const withMDX = require('@next/mdx')({
@@ -13,10 +14,17 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     formats: ['image/avif', 'image/webp'],
-    domains: [
-      'localhost',
-      's3.ap-northeast-1.amazonaws.com',
-      'res.cloudinary.com',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 's3.ap-northeast-1.amazonaws.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '**',
+      },
     ],
   },
   i18n,

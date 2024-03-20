@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import Tags from '../Common/Tags';
-import { convert } from '@/ultis/slugify';
+import { convert } from '@/utils/slugify';
 
 const ArticleCard: React.FC<{ post: any }> = ({ post }) => {
   const router = useRouter();
