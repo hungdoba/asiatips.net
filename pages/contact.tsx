@@ -2,11 +2,12 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 import SEO from '@/components/Layout/SEO';
+import Alert from '@/components/Widget/Alert';
+import Footer from '@/components/Layout/Footer';
 import Navbar from '@/components/Layout/Navbar';
 import SocialMedia from '@/components/Common/SocialMedia';
-import Footer from '@/components/Layout/Footer';
-import Alert from '@/components/Widget/Alert';
 
 export const getStaticProps = async (context: any) => {
   const locale = context.locale;
