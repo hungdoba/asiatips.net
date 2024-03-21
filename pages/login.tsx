@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { useTranslation } from 'next-i18next';
-import { useSession, signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
@@ -16,8 +16,6 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 };
 
 const LoginPage = () => {
-  const { data: session } = useSession();
-
   const router = useRouter();
 
   const { t } = useTranslation();
@@ -32,11 +30,13 @@ const LoginPage = () => {
       password,
       redirect: false,
     });
-  };
 
-  if (session) {
-    router.push('/markdown');
-  }
+    if (result?.ok) {
+      router.push('/create');
+    } else {
+      alert('Login fail');
+    }
+  };
 
   return (
     <section className="bg-gray-50 ">

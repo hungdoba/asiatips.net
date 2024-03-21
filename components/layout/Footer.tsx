@@ -25,7 +25,7 @@ export default function Footer() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => (window.location.href = '/markdown')}
+                    onClick={() => (window.location.href = '/create')}
                     className="text-red-600 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
                   >
                     {t('link:writeArticle')}
