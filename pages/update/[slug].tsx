@@ -12,7 +12,6 @@ import 'easymde/dist/easymde.min.css';
 import { useSession } from 'next-auth/react';
 import { uploadImage } from '@/utils/upload';
 import PostCreationBar from '@/components/Common/PostCreationBar';
-import { PostCreation } from '@/utils/types';
 import { post_translation } from '@prisma/client';
 
 interface Props {
@@ -142,7 +141,7 @@ export default function UpdateArticle({ post }: MarkdownUpdateProps) {
         }
       } catch (error) {
         console.error('Error uploading image:', error);
-        onError(error);
+        onError('Upload image error, maybe size of image too big');
       }
     }
   };
@@ -158,7 +157,7 @@ export default function UpdateArticle({ post }: MarkdownUpdateProps) {
   }, []);
 
   return (
-    <div className="container mx-auto w-full md:max-w-7xl mt-4">
+    <div className="container mx-auto w-full md:max-w-8xl mt-4">
       <div className="flex flex-row mx-8">
         <div className="w-3/4 prose-lg pr-4">
           {imageUrl && (

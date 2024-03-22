@@ -74,7 +74,7 @@ export default function CreateArticle() {
         }
       } catch (error) {
         console.error('Error uploading image:', error);
-        onError(error);
+        onError('Upload image error, maybe size of image too big');
       }
     }
   };
