@@ -31,7 +31,7 @@ export default function SearchPage() {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            `/api/post/search?searchTerm=${searchTerm}`
+            `/api/article/search?searchTerm=${searchTerm}`
           );
           const data = await response.json();
           setResults(data.results);
