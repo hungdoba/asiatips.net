@@ -17,6 +17,7 @@ export default async function handler(
       const fileStr = req.body.image;
       const uploadResponse = await cloudinary.uploader.upload(fileStr, {
         upload_preset: 'new-preset',
+        folder: `${process.env.CLOUDINARY_FOLDER}/article`,
       });
       res.status(200).json({ imageURL: uploadResponse.secure_url });
     } catch (error) {

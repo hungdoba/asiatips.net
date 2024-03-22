@@ -3,18 +3,19 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 import cloudinary from '../../utils/cloudinary';
-import getBase64ImageUrl from '../../utils/generateBlurPlaceholder';
 import type { ImageProps } from '../../utils/types';
 import { useLastViewedPhoto } from '../../utils/useLastViewedPhoto';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Modal from '@/components/Common/Modal';
-import Navbar from '@/components/Layout/Navbar';
+import getBase64ImageUrl from '../../utils/generateBlurPlaceholder';
+
 import SEO from '@/components/Layout/SEO';
+import Navbar from '@/components/Layout/Navbar';
+import Modal from '@/components/Common/Modal';
 
 export async function getStaticProps(context: any) {
   const locale = context.locale;
   const results = await cloudinary.v2.search
-    .expression(`folder:${process.env.CLOUDINARY_FOLDER}/*`)
+    .expression(`folder:${process.env.CLOUDINARY_FOLDER}/gallery/*`)
     .sort_by('public_id', 'desc')
     .max_results(400)
     .execute();
