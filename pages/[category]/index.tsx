@@ -86,7 +86,7 @@ function CategoryPage({ postsInit, category }: CategoryProps) {
       <div className="container md:mx-auto mt-24 md:flex md:flex-col md:max-w-7xl">
         <div className="mx-2">
           <div className="w-full">
-            <Tags category={category} />
+            <Tags category={category} clickable />
           </div>
           <hr className="h-px my-2 bg-blue-200 border-0 "></hr>
           <h2 className="mb-2 text-xl font-bold">{t('title:article')}</h2>

@@ -62,9 +62,9 @@ function HomePage({ posts }: HomePageProps) {
       <div className="container md:mx-auto mt-24 md:flex md:flex-col md:max-w-7xl">
         <div className="mx-2">
           <div className="w-full">
-            <Tags />
+            <Tags clickable />
           </div>
-          <hr className="h-px my-2 bg-blue-200 border-0 "></hr>
+          <hr className="h-px my-4 bg-blue-200 border-0 "></hr>
           <h2 className="mb-2 text-xl font-bold">{t('title:article')}</h2>
           <div className="flex flex-col md:flex-row">
             <div className="w-full md:w-3/4 md:mr-2">

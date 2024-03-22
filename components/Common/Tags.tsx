@@ -1,47 +1,39 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { toTitleCase } from '@/utils/helpers';
 
 interface TagsProps {
   initTags?: string[];
   highlightedTag?: string;
   category?: string;
-  isClickable?: boolean;
+  clickable?: boolean;
 }
 
 export default function Tags({
   initTags = [],
   highlightedTag,
   category,
-  isClickable = true,
+  clickable = false,
 }: TagsProps) {
-  const [tags, setTags] = useState<string[]>(initTags);
   const router = useRouter();
+  const [tags, setTags] = useState<string[]>(initTags);
 
+  // fetch tags in case doen't has one
   useEffect(() => {
-    const fetchData = async () => {
-      let url = '/api/tags';
-      if (category !== null) {
-        url = `/api/tags/${category}`;
-      }
-      const response = await fetch(url);
-      const data = await response.json();
-      setTags(data);
-    };
-
-    if (category === null && initTags === null) {
+    if (tags.length == 0) {
+      let url = category ? `/api/tags/${category}` : '/api/tags';
+      const fetchData = async () => {
+        const response = await fetch(url);
+        const data = await response.json();
+        setTags(data);
+      };
       fetchData();
     }
-  }, [category, initTags]);
+  }, [category, initTags, tags]);
 
+  // click on tag
   const redirectToTag = (tag: any) => {
     router.push(`/tags/${tag}`);
-  };
-
-  const formatText = (inputText: string) => {
-    return inputText
-      .split('-')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
   };
 
   return (
@@ -51,7 +43,7 @@ export default function Tags({
           <span
             className={`bg-orange-200 text-orange-800 border-orange-200 text-xs font-medium mr-2 mb-2 px-2.5 py-0.5 rounded border  hover:cursor-pointer`}
           >
-            {formatText(category)}
+            {toTitleCase(category)}
           </span>
           <p>&#9755;&nbsp;</p>
         </div>
@@ -59,11 +51,15 @@ export default function Tags({
       {tags.map((tag, id) => (
         <span
           key={id}
-          onClick={() => isClickable && redirectToTag(tag)}
+          onClick={() => clickable && redirectToTag(tag)}
           className={`${
             highlightedTag == tag
               ? 'bg-orange-100 text-orange-800 border-orange-400'
-              : 'bg-blue-100 text-blue-800 border-blue-400'
+              : `bg-blue-100 ${
+                  clickable
+                    ? 'text-blue-800 border-blue-400'
+                    : 'text-blue-400 border-blue-50'
+                }`
           }  text-xs mr-2 mb-2 px-2.5 py-0.5 rounded border  hover:cursor-pointer`}
         >
           {tag}

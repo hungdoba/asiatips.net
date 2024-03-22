@@ -47,7 +47,7 @@ const ArticleCard: React.FC<{ post: any }> = ({ post }) => {
               year: 'numeric',
             })}
           </p>
-          <Tags initTags={post.tags} isClickable={false} />
+          <Tags initTags={post.tags} />
         </div>
       </div>
     </Link>

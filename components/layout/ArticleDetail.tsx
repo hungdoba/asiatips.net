@@ -93,7 +93,7 @@ export default function ArticleDetail({
       <Navbar />
       <main className="container mx-auto mt-24 md:flex md:flex-col md:max-w-7xl">
         <header className="mx-4">
-          <Tags />
+          <Tags clickable />
           <hr className="h-px my-2 bg-blue-200 border-0 "></hr>
         </header>
 
@@ -137,7 +137,7 @@ export default function ArticleDetail({
               {t('common:readMore')}
             </h2>
             <hr className="mb-2" />
-            <Tags />
+            <Tags clickable />
             <RecentlyAddedArticles />
           </article>
           <div className="w-full md:w-1/4">
