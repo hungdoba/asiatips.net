@@ -57,7 +57,7 @@ function PostCreationBar({
       : (setTitle(postCreation.jaTitle),
         setBrief(postCreation.jaBrief),
         setTableOfContens(postCreation.jaTableOfContents));
-  }, [language, postCreation]);
+  }, [language]);
 
   // content changed
   useEffect(() => {
