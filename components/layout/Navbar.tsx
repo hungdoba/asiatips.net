@@ -53,7 +53,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center tracking-wide">
             <Image
               width={120}
-              height={240}
+              height={47}
               src="/logo.png"
               className="mr-3 lg:h-22 lg:w-42"
               alt="Asiatips logo"
