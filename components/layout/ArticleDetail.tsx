@@ -4,8 +4,6 @@ import { MDXRemote } from 'next-mdx-remote';
 import TableOfContents from './TableOfContents';
 import { Fragment, useEffect, useState } from 'react';
 
-import Top10Newest from './RecentlyAddedArticles';
-
 import { useTranslation } from 'next-i18next';
 import Tags from '../Common/Tags';
 import Admin from './Admin';
@@ -19,6 +17,7 @@ import { convert } from '@/utils/slugify';
 import { Alert } from '../Control/Alert';
 import Underline from '../Control/Underline';
 import Button from '../Control/Button';
+import RecentlyAddedArticles from './RecentlyAddedArticles';
 
 interface ArticleDetailProps {
   tableOfContents: string;
@@ -139,7 +138,7 @@ export default function ArticleDetail({
             </h2>
             <hr className="mb-2" />
             <Tags />
-            <Top10Newest />
+            <RecentlyAddedArticles />
           </article>
           <div className="w-full md:w-1/4">
             <div className="hidden md:block">

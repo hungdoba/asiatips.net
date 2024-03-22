@@ -9,7 +9,7 @@ export default function RecentlyAddedArticles() {
 
   useEffect(() => {
     const fetchNewestPosts = async () => {
-      const response = await fetch('/api/articles/recently/added');
+      const response = await fetch('/api/article/recently/added');
       const data = await response.json();
       setRelatedPosts(data);
     };
