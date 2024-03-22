@@ -16,3 +16,19 @@ export interface SharedModalProps {
   navigation: boolean;
   direction?: number;
 }
+
+export interface PostCreation {
+  slug: string;
+  category: string;
+  tags: string;
+  imageUrl: string;
+  active: boolean;
+  viTitle: string;
+  viBrief: string;
+  viTableOfContents: string;
+  viContent: string;
+  jaTitle: string;
+  jaBrief: string;
+  jaTableOfContents: string;
+  jaContent: string;
+}

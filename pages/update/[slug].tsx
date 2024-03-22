@@ -10,8 +10,10 @@ const SimpleMdeReact = dynamic(() => import('react-simplemde-editor'), {
 import EasyMDE from 'easymde';
 import 'easymde/dist/easymde.min.css';
 import { useSession } from 'next-auth/react';
-import ControlBar from '@/components/Common/ControlBar';
-import { post, post_translation } from '@prisma/client';
+import { uploadImage } from '@/utils/upload';
+import PostCreationBar from '@/components/Common/PostCreationBar';
+import { PostCreation } from '@/utils/types';
+import { post_translation } from '@prisma/client';
 
 interface Props {
   params: any;
@@ -55,7 +57,9 @@ export const getStaticProps = async ({ params }: Props) => {
   };
 };
 
-export default function MarkdownUpdate({ post }: MarkdownUpdateProps) {
+export default function UpdateArticle({ post }: MarkdownUpdateProps) {
+  // check login before allow modify
+  const router = useRouter();
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -63,13 +67,7 @@ export default function MarkdownUpdate({ post }: MarkdownUpdateProps) {
     },
   });
 
-  const router = useRouter();
-  const [language, setLanguage] = useState('vi');
-  const [newArticle, setNewArticle] = useState<post>(post);
-  const [translations, setTranslations] = useState<post_translation[]>(
-    post.post_translation
-  );
-
+  // prevent close
   useEffect(() => {
     window.addEventListener('beforeunload', handleBeforeUnload);
 
@@ -85,60 +83,71 @@ export default function MarkdownUpdate({ post }: MarkdownUpdateProps) {
     return confirmationMessage;
   };
 
-  const handleContentChanged = (value: string) => {
-    // find content index
-    const index = translations.findIndex(
-      (x: post_translation) => x.language_code == language
-    );
+  // Helper function to find translations by language
+  const findTranslation = (
+    postTranslations: post_translation[],
+    languageCode: string
+  ) => postTranslations.find((x) => x.language_code === languageCode);
 
-    // found
-    if (index != -1) {
-      const updatedTranslations = [...translations];
-      updatedTranslations[index] = {
-        ...updatedTranslations[index],
-        markdown: value,
-      };
-      setTranslations(updatedTranslations);
-    } else {
-      console.error("Translation with language_code 'vi' not found");
-    }
+  let postCreation = {
+    slug: post.url,
+    category: post.category,
+    tags: post.tags,
+    imageUrl: post.image,
+    active: post.active,
+    viTitle: findTranslation(post.post_translation, 'vi')?.title ?? '',
+    viBrief: findTranslation(post.post_translation, 'vi')?.brief ?? '',
+    viTableOfContents:
+      findTranslation(post.post_translation, 'vi')?.tableOfContents ?? '',
+    viContent: findTranslation(post.post_translation, 'vi')?.markdown ?? '',
+    jaTitle: findTranslation(post.post_translation, 'ja')?.title ?? '',
+    jaBrief: findTranslation(post.post_translation, 'ja')?.brief ?? '',
+    jaTableOfContents:
+      findTranslation(post.post_translation, 'ja')?.tableOfContents ?? '',
+    jaContent: findTranslation(post.post_translation, 'ja')?.markdown ?? '',
   };
 
-  useEffect(() => {
-    console.log(translations);
-  }, [translations]);
+  // language
+  const [language, setLanguage] = useState('Vietnamese');
+  const handleLanguageChange = (language: any) => {
+    setLanguage(language);
+  };
 
-  const handleImageUpload = async (file: any, onSuccess: any, onError: any) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+  // header image
+  const [imageUrl, setImageUrl] = useState(postCreation.imageUrl);
+  // title
+  const [title, setTitle] = useState(postCreation.viTitle);
 
-    reader.onload = async function () {
-      const imageData = reader.result;
+  // content
+  const [viContent, setViContent] = useState(postCreation.viContent);
+  const [jaContent, setJaContent] = useState(postCreation.jaContent);
 
+  // handle change content
+  const handleContentChanged = (value: string) => {
+    language === 'Vietnamese' ? setViContent(value) : setJaContent(value);
+  };
+
+  const handleImageUpload = async (
+    file: File,
+    onSuccess: any,
+    onError: any
+  ) => {
+    if (file) {
       try {
-        const response = await fetch('/api/upload', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ image: imageData }),
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to upload image');
+        const imageUrl = await uploadImage(file);
+        if (imageUrl) {
+          onSuccess(imageUrl);
+        } else {
+          alert('Upload image fail');
         }
-
-        const data = await response.json();
-        console.log('Image uploaded successfully:', data.imageURL);
-        onSuccess(data.imageURL);
       } catch (error) {
         console.error('Error uploading image:', error);
         onError(error);
       }
-    };
+    }
   };
 
-  const options = useMemo(() => {
+  const editorOptions = useMemo(() => {
     return {
       autofocus: true,
       spellChecker: true,
@@ -148,54 +157,36 @@ export default function MarkdownUpdate({ post }: MarkdownUpdateProps) {
     } as EasyMDE.Options;
   }, []);
 
-  const handleNewArticleChange = (newInformation: any) => {
-    setNewArticle(newInformation);
-  };
-
-  const handleTranslationChaned = (newInformation: any) => {
-    setTranslations(newInformation);
-  };
-
   return (
     <div className="container mx-auto w-full md:max-w-7xl mt-4">
       <div className="flex flex-row mx-8">
         <div className="w-3/4 prose-lg pr-4">
-          {newArticle.image && (
+          {imageUrl && (
             <Image
               className="w-full rounded-xl"
               height={1000}
               width={800}
-              src={newArticle.image}
+              src={imageUrl}
               alt="Article Image"
             />
           )}
-          <h1 className="text-4xl font-bold my-4">
-            {
-              translations.find(
-                (x: post_translation) => x.language_code == language
-              )?.title
-            }
-          </h1>
+          <h1 className="text-4xl font-bold my-4">{title}</h1>
           <SimpleMdeReact
-            value={
-              translations.find(
-                (x: post_translation) => x.language_code == language
-              )?.markdown
-            }
+            value={language === 'Vietnamese' ? viContent : jaContent}
             onChange={handleContentChanged}
-            options={options}
+            options={editorOptions}
           />
         </div>
         <div className="w-1/4">
-          <ControlBar
-            newArticle={newArticle}
-            translations={translations}
-            onNewArticleChange={handleNewArticleChange}
-            onTranslationChanged={handleTranslationChaned}
-            isUpdateMode={true}
-            onLanguageChange={(language: string) => {
-              setLanguage(language);
-            }}
+          <PostCreationBar
+            initPostCreation={postCreation}
+            language={language}
+            updateMode={true}
+            onLanguageChange={handleLanguageChange}
+            onImageChange={(imageUrl: string) => setImageUrl(imageUrl)}
+            onTitleChange={(title: string) => setTitle(title)}
+            viContent={viContent}
+            jaContent={jaContent}
           />
         </div>
       </div>

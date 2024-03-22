@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { NewArticle } from '@/utils/types';
 import { useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -11,10 +10,12 @@ const SimpleMdeReact = dynamic(() => import('react-simplemde-editor'), {
 
 import 'easymde/dist/easymde.min.css';
 import EasyMDE from 'easymde';
-import ControlBar from '@/components/Common/ControlBar';
-import { post, post_translation } from '@prisma/client';
+import { uploadImage } from '@/utils/upload';
+import PostCreationBar from '@/components/Common/PostCreationBar';
 
-export default function MarkdownCreate() {
+export default function CreateArticle() {
+  // check login before allow modify
+  const router = useRouter();
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -22,29 +23,7 @@ export default function MarkdownCreate() {
     },
   });
 
-  const router = useRouter();
-  const [language, setLanguage] = useState('vi');
-  const [newArticle, setNewArticle] = useState<post>({
-    id: 0,
-    url: '',
-    category: 'tips',
-    image: '',
-    tags: ['tips'],
-    active: true,
-    created_at: new Date(),
-  });
-  const [translations, setTranslations] = useState<post_translation[]>([
-    {
-      id: 0,
-      post_id: 0,
-      language_code: 'vi',
-      title: '',
-      brief: '',
-      tableOfContents: '',
-      markdown: '',
-    },
-  ]);
-
+  // prevent close
   useEffect(() => {
     window.addEventListener('beforeunload', handleBeforeUnload);
 
@@ -60,23 +39,24 @@ export default function MarkdownCreate() {
     return confirmationMessage;
   };
 
-  const handleContentChanged = (value: string) => {
-    // find content index
-    const index = translations?.findIndex(
-      (x: post_translation) => x.language_code == language
-    );
+  // language
+  const [language, setLanguage] = useState('Vietnamese');
+  const handleLanguageChange = (language: any) => {
+    setLanguage(language);
+  };
 
-    // found
-    if (index != -1) {
-      const updatedTranslations = [...translations];
-      updatedTranslations[index] = {
-        ...updatedTranslations[index],
-        markdown: value,
-      };
-      setTranslations(updatedTranslations);
-    } else {
-      console.error("Translation with language_code 'vi' not found");
-    }
+  // header image
+  const [imageUrl, setImageUrl] = useState('');
+  // title
+  const [title, setTitle] = useState('');
+
+  // content
+  const [viContent, setViContent] = useState('');
+  const [jaContent, setJaContent] = useState('');
+
+  // handle change content
+  const handleContentChanged = (value: string) => {
+    language === 'Vietnamese' ? setViContent(value) : setJaContent(value);
   };
 
   const handleImageUpload = async (
@@ -84,33 +64,19 @@ export default function MarkdownCreate() {
     onSuccess: any,
     onError: any
   ) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onload = async function () {
-      const imageData = reader.result;
-
+    if (file) {
       try {
-        const response = await fetch('/api/upload', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ image: imageData }),
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to upload image');
+        const imageUrl = await uploadImage(file);
+        if (imageUrl) {
+          onSuccess(imageUrl);
+        } else {
+          alert('Upload image fail');
         }
-
-        const data = await response.json();
-        console.log('Image uploaded successfully:', data.imageURL);
-        onSuccess(data.imageURL);
       } catch (error) {
         console.error('Error uploading image:', error);
         onError(error);
       }
-    };
+    }
   };
 
   const options = useMemo(() => {
@@ -123,54 +89,35 @@ export default function MarkdownCreate() {
     } as EasyMDE.Options;
   }, []);
 
-  const handleNewArticleChange = (newInformation: any) => {
-    setNewArticle(newInformation);
-  };
-
-  const handleTranslationChaned = (newInformation: any) => {
-    setTranslations(newInformation);
-  };
-
   return (
     <div className="container mx-auto w-full md:max-w-7xl mt-4">
       <div className="flex flex-row mx-8">
         <div className="w-3/4 prose-lg pr-4">
-          {newArticle.image && (
+          {imageUrl && (
             <Image
               className="w-full rounded-xl"
               height={1000}
               width={800}
-              src={newArticle.image}
+              src={imageUrl}
               alt="Article Image"
             />
           )}
-          <h1 className="text-4xl font-bold my-4">
-            {
-              translations.find(
-                (x: post_translation) => x.language_code === language
-              )?.title
-            }
-          </h1>
+          <h1 className="text-4xl font-bold my-4">{title}</h1>
           <SimpleMdeReact
-            value={
-              translations.find(
-                (x: post_translation) => x.language_code === language
-              )?.markdown
-            }
+            value={language === 'Vietnamese' ? viContent : jaContent}
             onChange={handleContentChanged}
             options={options}
           />
         </div>
         <div className="w-1/4">
-          <ControlBar
-            newArticle={newArticle}
-            translations={translations}
-            onNewArticleChange={handleNewArticleChange}
-            onTranslationChanged={handleTranslationChaned}
-            isUpdateMode={true}
-            onLanguageChange={(language: string) => {
-              setLanguage(language);
-            }}
+          <PostCreationBar
+            language={language}
+            updateMode={false}
+            onLanguageChange={handleLanguageChange}
+            onImageChange={(imageUrl: string) => setImageUrl(imageUrl)}
+            onTitleChange={(title: string) => setTitle(title)}
+            viContent={viContent}
+            jaContent={jaContent}
           />
         </div>
       </div>
