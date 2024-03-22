@@ -20,6 +20,7 @@
     "@types/formidable": "^2.0.6",
     "@types/imagemin": "^8.0.5",
     "@types/imagemin-jpegtran": "^5.0.4",
+    "@vercel/analytics": "^1.2.2",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.0.3",
     "easymde": "^2.18.0",
