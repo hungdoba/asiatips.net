@@ -16,7 +16,7 @@ export default function Admin() {
             src="/admin.png"
             alt="Admin logo"
           />
-          <h5 className="mb-1 text-xl font-medium text-gray-900 ">Hung Ba</h5>
+          <h1 className="mb-1 text-xl font-medium text-gray-900 ">Hung Ba</h1>
           <span className="text-sm text-gray-500 mb-2">
             {t('aboutme:jobTitle')}
           </span>

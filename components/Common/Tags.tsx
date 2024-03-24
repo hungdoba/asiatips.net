@@ -58,7 +58,7 @@ export default function Tags({
               : `bg-blue-100 ${
                   clickable
                     ? 'text-blue-800 border-blue-400'
-                    : 'text-blue-500 border-blue-100'
+                    : 'text-blue-600 border-blue-100'
                 }`
           }  text-xs mr-2 mb-2 px-2.5 py-0.5 rounded border  hover:cursor-pointer`}
         >
