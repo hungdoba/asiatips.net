@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /create/
+
+Sitemap: https://asiatips.net/sitemap.xml

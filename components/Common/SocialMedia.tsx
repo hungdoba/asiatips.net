@@ -6,12 +6,20 @@ const SocialMedia = () => {
   return (
     <div className="m-8 flex items-center justify-center">
       <div className="mr-4 text-blue-400 hover:text-green-500 cursor-pointer">
-        <Link href="https://www.facebook.com/asiatips.net" target="_blank">
+        <Link
+          href="https://www.facebook.com/asiatips.net"
+          target="_blank"
+          aria-label="Facebook of asiatips"
+        >
           <FaFacebook size={32} />
         </Link>
       </div>
       <div className="mr-4 text-blue-600 hover:text-green-500 cursor-pointer">
-        <Link href="https://twitter.com/asiatips_net" target="_blank">
+        <Link
+          href="https://twitter.com/asiatips_net"
+          target="_blank"
+          aria-label="Twitter of asiatips"
+        >
           <FaTwitter size={32} />
         </Link>
       </div>
@@ -19,6 +27,7 @@ const SocialMedia = () => {
         <Link
           href="https://www.instagram.com/asiatips.official/"
           target="_blank"
+          aria-label="Instagram of asiatips"
         >
           <FaInstagram size={32} />
         </Link>

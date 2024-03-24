@@ -1,6 +1,6 @@
 import { prisma } from '@/utils/db';
-import { convert } from '@/utils/slugify';
 import { post } from '@prisma/client';
+import { convert } from '@/utils/slugify';
 
 const EXTERNAL_DATA_URL = 'https://asiatips.net';
 function generateSiteMap(posts: post[]) {

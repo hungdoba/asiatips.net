@@ -33,9 +33,9 @@ const ArticleCard: React.FC<{ post: any }> = ({ post }) => {
           />
         </div>
         <div className="flex flex-col justify-around w-2/3 pl-6">
-          <h5 className="mb-2 md:text-xl md:font-bold text-gray-900">
+          <h1 className="mb-2 md:text-xl md:font-bold text-gray-900">
             {router.locale === 'vi' ? viTranslation.title : jaTranslation.title}
-          </h5>
+          </h1>
           <p className="hidden md:block font-normal text-gray-700 mb-2">
             {router.locale === 'vi' ? viTranslation.brief : jaTranslation.brief}
           </p>

@@ -8,13 +8,13 @@ import {
 } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { useState } from 'react';
-import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
-import { useSwipeable } from 'react-swipeable';
 import Twitter from '../Icons/Twitter';
-import { variants } from '@/utils/animationVariants';
+import { useSwipeable } from 'react-swipeable';
+import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 
-import downloadPhoto from '@/utils/downloadPhoto';
 import { range } from '@/utils/range';
+import downloadPhoto from '@/utils/downloadPhoto';
+import { variants } from '@/utils/animationVariants';
 import type { ImageProps, SharedModalProps } from '@/utils/types';
 
 export default function SharedModal({
