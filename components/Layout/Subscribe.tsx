@@ -41,9 +41,9 @@ export default function Subscribe() {
   return (
     <div className={`w-full my-4`}>
       <div className="p-4 bg-white border border-gray-200 rounded-lg shadow md:m-0">
-        <h3 className="mb-2 text-lg font-bold text-gray-900">
+        <h1 className="mb-2 text-lg font-bold text-gray-900">
           {t('title:newPostFollow')}
-        </h3>
+        </h1>
         <hr />
         <SocialMedia />
         <h3 className="mb-2 text-lg font-bold text-gray-900">
