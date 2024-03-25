@@ -46,9 +46,9 @@ export default function Subscribe() {
         </h1>
         <hr />
         <SocialMedia />
-        <h3 className="mb-2 text-lg font-bold text-gray-900">
+        <h2 className="mb-2 text-lg font-bold text-gray-900">
           {t('title:mailNotifyFollow')}
-        </h3>
+        </h2>
         <hr />
         <div className="pt-4">
           <form className="flex flex-col md:flex-row" onSubmit={handleSubmit}>
