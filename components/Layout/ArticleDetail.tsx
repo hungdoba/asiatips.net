@@ -6,7 +6,7 @@ import { Fragment, useEffect, useState } from 'react';
 
 import { useTranslation } from 'next-i18next';
 import Tags from '../Common/Tags';
-import Admin from './Admin';
+// import Admin from './Admin';
 import Subscribe from './Subscribe';
 import SEO from './SEO';
 import SocialMedia from '../Common/SocialMedia';
@@ -30,21 +30,10 @@ export default function ArticleDetail({
   content,
   post,
 }: ArticleDetailProps) {
-  // const [tags, setTags] = useState<string[]>([]);
-  const [popupTableOfContent, setPopupTableOfContent] = useState(false);
+  const [hideTableOfContent, setHideTableOfContent] = useState(true);
   const [isShowControlButton, setShowControlButton] = useState(false);
-  const [isHideTableOfContent, setIsHideTableOfContent] = useState(false);
 
   const { t } = useTranslation();
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await fetch('/api/tags');
-  //     const data = await response.json();
-  //     setTags(data);
-  //   };
-  //   fetchData();
-  // }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -60,27 +49,27 @@ export default function ArticleDetail({
     return documentHeight - scrollY <= windowHeight + 50;
   }
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (isScrollAtBottom()) {
-        setIsHideTableOfContent(true);
-      } else {
-        setIsHideTableOfContent(false);
-      }
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (isScrollAtBottom()) {
+  //       setHideTableOfContent(true);
+  //     } else {
+  //       setHideTableOfContent(false);
+  //     }
 
-      if (window.scrollY > 800) {
-        setShowControlButton(true);
-      } else {
-        setShowControlButton(false);
-      }
-    };
+  //     if (window.scrollY > 800) {
+  //       setShowControlButton(true);
+  //     } else {
+  //       setShowControlButton(false);
+  //     }
+  //   };
 
-    window.addEventListener('scroll', handleScroll);
+  //   window.addEventListener('scroll', handleScroll);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
 
   return (
     <Fragment>
@@ -107,14 +96,6 @@ export default function ArticleDetail({
               alt="Article Image"
             />
             <h1 className="text-4xl font-bold my-4">{post.title}</h1>
-            {/* <div className="w-full md:hidden">
-              <TableOfContents
-                content={tableOfContents}
-                isPopupMode={false}
-                isPopup={false}
-                setHidden={null}
-              />
-            </div> */}
             <div className="prose max-w-none prose-lg overflow-hidden">
               <MDXRemote
                 {...content}
@@ -142,41 +123,27 @@ export default function ArticleDetail({
             <RecentlyAddedArticles />
           </article>
           <div className="w-full md:w-1/4">
-            {/* <div className="hidden md:block">
-              <Admin />
-            </div> */}
             <div className="sticky top-24 mb-4">
               <Subscribe />
-            </div>
-            <div
-              className={`hidden ${
-                isHideTableOfContent ? 'md:hidden' : 'md:block'
-              } md:sticky top-96`}
-            >
-              <TableOfContents
-                content={tableOfContents}
-                isPopupMode={false}
-                isPopup={false}
-                setHidden={null}
-              />
+              <div className="mt-4">
+                <TableOfContents
+                  content={tableOfContents}
+                  hidden={hideTableOfContent}
+                  setHidden={() => setHideTableOfContent(true)}
+                />
+              </div>
             </div>
           </div>
         </div>
-        <TableOfContents
-          content={tableOfContents}
-          isPopupMode={true}
-          isPopup={popupTableOfContent}
-          setHidden={() => setPopupTableOfContent(false)}
-        />
       </main>
 
       {/* Table of Contents Icon */}
       <div className="fixed md:hidden bottom-4 right-4">
         <div className="relative">
-          <a href="#top-of-page">
+          <a href="#top-of-page" aria-label="Show Table of content">
             <div
               className="w-12 h-12 flex items-center justify-center rounded-full bg-white bg-opacity-30 backdrop-blur-md border"
-              onClick={() => setPopupTableOfContent(true)}
+              onClick={() => setHideTableOfContent(false)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
