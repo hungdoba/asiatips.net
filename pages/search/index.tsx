@@ -8,7 +8,7 @@ import SEO from '@/components/Layout/SEO';
 import Navbar from '@/components/Layout/Navbar';
 import Footer from '@/components/Layout/Footer';
 import ArticleCard from '@/components/Card/ArticleCard';
-import Admin from '@/components/Layout/Admin';
+// import Admin from '@/components/Layout/Admin';
 import Subscribe from '@/components/Layout/Subscribe';
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
@@ -65,7 +65,7 @@ export default function SearchPage() {
 
           <div className="w-full md:w-1/4">
             <div className="sticky top-24 mb-4">
-              <Admin />
+              {/* <Admin /> */}
               <Subscribe />
             </div>
           </div>

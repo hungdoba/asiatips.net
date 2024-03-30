@@ -10,7 +10,7 @@ import SEO from '@/components/Layout/SEO';
 import Tags from '@/components/Common/Tags';
 import Navbar from '@/components/Layout/Navbar';
 import Footer from '@/components/Layout/Footer';
-import Admin from '@/components/Layout/Admin';
+// import Admin from '@/components/Layout/Admin';
 import ArticleCard from '@/components/Card/ArticleCard';
 import Subscribe from '@/components/Layout/Subscribe';
 
@@ -95,7 +95,7 @@ function HomePage({ posts }: HomePageProps) {
 
             <div className="w-full md:w-1/4 mb-2">
               <div className="sticky top-24">
-                <Admin />
+                {/* <Admin /> */}
                 <Subscribe />
               </div>
             </div>

@@ -6,7 +6,7 @@ import SEO from '@/components/Layout/SEO';
 import Navbar from '@/components/Layout/Navbar';
 import Tags from '@/components/Common/Tags';
 import ArticleCard from '@/components/Card/ArticleCard';
-import Admin from '@/components/Layout/Admin';
+// import Admin from '@/components/Layout/Admin';
 import Subscribe from '@/components/Layout/Subscribe';
 import Footer from '@/components/Layout/Footer';
 
@@ -46,7 +46,7 @@ const TagPage = ({ posts, tag }: Props) => {
 
             <div className="w-full md:w-1/4 mb-2">
               <div className="sticky top-24">
-                <Admin />
+                {/* <Admin /> */}
                 <Subscribe />
               </div>
             </div>

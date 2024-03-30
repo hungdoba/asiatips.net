@@ -17,7 +17,6 @@ const TableOfContents = ({
   const { t } = useTranslation();
   return (
     <div
-      id="medium-modal"
       tabIndex={-1}
       className={`${isPopupMode && !isPopup && 'hidden'} ${
         isPopup &&

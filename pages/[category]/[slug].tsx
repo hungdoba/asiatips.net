@@ -5,8 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import remarkGfm from 'remark-gfm';
 import remarkToc from 'remark-toc';
-// TODO: recheck remarkEmoji, error not assiable
-// import remarkEmoji from 'remark-emoji';
+import remarkEmoji from 'remark-emoji';
 import remarkImages from 'remark-images';
 
 import rehypeSlug from 'rehype-slug';
@@ -67,6 +66,7 @@ export const getStaticProps = async (context: any) => {
           mdxOptions: {
             rehypePlugins: [
               rehypeSlug,
+              remarkEmoji,
               [rehypeAutolinkHeadings, { behavior: 'wrap' }],
               rehypeHighlight,
             ],
@@ -77,6 +77,7 @@ export const getStaticProps = async (context: any) => {
           mdxOptions: {
             rehypePlugins: [
               rehypeSlug,
+              remarkEmoji,
               [rehypeAutolinkHeadings, { behavior: 'wrap' }],
               rehypeHighlight,
             ],

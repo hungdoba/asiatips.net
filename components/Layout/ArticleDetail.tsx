@@ -30,21 +30,21 @@ export default function ArticleDetail({
   content,
   post,
 }: ArticleDetailProps) {
-  const [tags, setTags] = useState<string[]>([]);
+  // const [tags, setTags] = useState<string[]>([]);
   const [popupTableOfContent, setPopupTableOfContent] = useState(false);
   const [isShowControlButton, setShowControlButton] = useState(false);
   const [isHideTableOfContent, setIsHideTableOfContent] = useState(false);
 
   const { t } = useTranslation();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('/api/tags');
-      const data = await response.json();
-      setTags(data);
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch('/api/tags');
+  //     const data = await response.json();
+  //     setTags(data);
+  //   };
+  //   fetchData();
+  // }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -107,20 +107,21 @@ export default function ArticleDetail({
               alt="Article Image"
             />
             <h1 className="text-4xl font-bold my-4">{post.title}</h1>
-            <div className="w-full md:hidden">
+            {/* <div className="w-full md:hidden">
               <TableOfContents
                 content={tableOfContents}
                 isPopupMode={false}
                 isPopup={false}
                 setHidden={null}
               />
-            </div>
+            </div> */}
             <div className="prose max-w-none prose-lg overflow-hidden">
               <MDXRemote
                 {...content}
                 components={{
                   Alert,
                   Underline,
+                  Image,
                   YouTube,
                   Button,
                 }}
@@ -141,10 +142,10 @@ export default function ArticleDetail({
             <RecentlyAddedArticles />
           </article>
           <div className="w-full md:w-1/4">
-            <div className="hidden md:block">
+            {/* <div className="hidden md:block">
               <Admin />
-            </div>
-            <div className="sticky top-24">
+            </div> */}
+            <div className="sticky top-24 mb-4">
               <Subscribe />
             </div>
             <div
@@ -169,9 +170,36 @@ export default function ArticleDetail({
         />
       </main>
 
+      {/* Table of Contents Icon */}
+      <div className="fixed md:hidden bottom-4 right-4">
+        <div className="relative">
+          <a href="#top-of-page">
+            <div
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-white bg-opacity-30 backdrop-blur-md border"
+              onClick={() => setPopupTableOfContent(true)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+                />
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+
       <div className={isShowControlButton ? 'block' : 'hidden'}>
         {/* Scroll to Top Icon */}
-        <div className="fixed bottom-4 right-4">
+        <div className="fixed bottom-20 md:bottom-4 right-4">
           <div className="relative">
             <a href="#top-of-page">
               <div
@@ -190,33 +218,6 @@ export default function ArticleDetail({
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     d="M4.5 15.75l7.5-7.5 7.5 7.5"
-                  />
-                </svg>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        {/* Table of Contents Icon */}
-        <div className="fixed bottom-20 right-4">
-          <div className="relative">
-            <a href="#top-of-page">
-              <div
-                className="w-12 h-12 flex items-center justify-center rounded-full bg-white bg-opacity-30 backdrop-blur-md border"
-                onClick={() => setPopupTableOfContent(true)}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
                   />
                 </svg>
               </div>

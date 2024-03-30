@@ -9,7 +9,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import SEO from '@/components/Layout/SEO';
 import Tags from '@/components/Common/Tags';
-import Admin from '@/components/Layout/Admin';
+// import Admin from '@/components/Layout/Admin';
 import Footer from '@/components/Layout/Footer';
 import Navbar from '@/components/Layout/Navbar';
 import Subscribe from '@/components/Layout/Subscribe';
@@ -119,7 +119,7 @@ function CategoryPage({ postsInit, category }: CategoryProps) {
 
             <div className="w-full md:w-1/4 mb-2">
               <div className="sticky top-24">
-                <Admin />
+                {/* <Admin /> */}
                 <Subscribe />
               </div>
             </div>
