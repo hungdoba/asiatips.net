@@ -87,13 +87,15 @@ export default function ArticleDetail({
         </header>
 
         <div className="md:flex md:flex-row mx-4">
-          <article className="w-full md:w-3/4 md:pr-4">
+          <article className="relative w-full md:w-3/4 md:pr-4">
             <Image
               className="w-full rounded-xl"
-              height={1280}
-              width={1920}
+              height={613}
+              width={930}
+              // fill
               src={post.image}
               alt="Article Image"
+              priority
             />
             <h1 className="text-4xl font-bold my-4">{post.title}</h1>
             <div className="prose max-w-none prose-lg overflow-hidden">
