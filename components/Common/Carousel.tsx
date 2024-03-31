@@ -40,6 +40,7 @@ export default function Carousel({
             src={currentPhoto.blurDataUrl}
             className="pointer-events-none h-full w-full"
             alt="blurred background"
+            sizes="100vw"
             fill
             priority={true}
           />

@@ -168,10 +168,13 @@ export default function UpdateArticle({ post }: MarkdownUpdateProps) {
         <div className="w-3/4 prose-lg pr-4">
           {imageUrl && (
             <Image
-              height={1280}
+              className="w-full rounded-xl"
               width={1920}
+              height={1280}
+              sizes="(min-width: 1360px) 920px, (min-width: 780px) 66.96vw, (min-width: 680px) 608px, calc(94.44vw - 15px)"
               src={imageUrl}
               alt="Article Image"
+              priority
             />
           )}
           <h1 className="text-4xl font-bold my-4">{title}</h1>

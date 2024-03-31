@@ -13,6 +13,7 @@ export default function Admin() {
             className="w-16 h-16 rounded-full"
             height={100}
             width={100}
+            sizes="25vw"
             src="/admin.png"
             alt="Admin logo"
           />
