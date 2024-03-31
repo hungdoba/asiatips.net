@@ -31,7 +31,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full top-0 border-b fixed backdrop-blur-sm text-black z-10">
+    <nav className="w-full top-0 border-b fixed backdrop-blur text-black z-10">
       <div className="w-full container mx-auto max-w-7xl flex flex-wrap items-center justify-between py-3">
         <label
           onClick={toggleMenu}

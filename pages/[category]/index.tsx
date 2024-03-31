@@ -93,33 +93,15 @@ function CategoryPage({ postsInit, category }: CategoryProps) {
           <div className="flex flex-col md:flex-row">
             <div className="w-full md:w-3/4 md:mr-2">
               {posts &&
-                posts.map((post: post) =>
-                  isAdmin ? (
-                    <div
-                      key={post.url}
-                      className={`border rounded-lg mb-4 flex flex-col items-end ${
-                        !post.active && 'bg-gray-300'
-                      }`}
-                    >
-                      <ArticleCard post={post} />
-                      <Link
-                        type="button"
-                        href={`/markdown/${post.url}`}
-                        target="_blank"
-                        className="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-                      >
-                        Chỉnh sửa
-                      </Link>
-                    </div>
-                  ) : (
+                posts.map((post: post, index: number) => (
+                  <div key={index}>
                     <ArticleCard key={post.url} post={post} />
-                  )
-                )}
+                  </div>
+                ))}
             </div>
 
             <div className="w-full md:w-1/4 mb-2">
               <div className="sticky top-24">
-                {/* <Admin /> */}
                 <Subscribe />
               </div>
             </div>

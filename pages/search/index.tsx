@@ -65,7 +65,6 @@ export default function SearchPage() {
 
           <div className="w-full md:w-1/4">
             <div className="sticky top-24 mb-4">
-              {/* <Admin /> */}
               <Subscribe />
             </div>
           </div>

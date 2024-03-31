@@ -39,7 +39,6 @@ export default function Footer() {
                   {t('link:login')}
                 </Link>
               )}
-              <p>All rights reserved</p>
             </div>
           </div>
           <div className="flex w-1/2 text-right">
@@ -51,7 +50,10 @@ export default function Footer() {
               >
                 {t('link:aboutme')}
               </Link> */}
-              <p>Copyright: 2023</p>
+              <p>Copyright 2024</p>
+              <p className="py-3 pl-0 mr-20 md:mr-0 md:pr-0 inline-block no-underline hover:text-black hover:underline">
+                All rights reserved
+              </p>
             </div>
           </div>
         </div>
