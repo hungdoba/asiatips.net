@@ -168,7 +168,7 @@ export default function ArticleDetail({
       {/* Scroll to Top Icon */}
       <div className="fixed bottom-20 md:bottom-4 right-4">
         <div className="relative">
-          <a href="#top-of-page">
+          <a href="#top-of-page" aria-label="Scroll to the top">
             <div
               className="w-12 h-12 flex items-center justify-center rounded-full bg-white bg-opacity-30 backdrop-blur-md border"
               onClick={scrollToTop}

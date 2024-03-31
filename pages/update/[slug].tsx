@@ -42,7 +42,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params }: Props) => {
   const post = await prisma.post.findFirst({
     where: {
-      url: params.url,
+      url: params.slug,
     },
     include: {
       post_translation: true,
