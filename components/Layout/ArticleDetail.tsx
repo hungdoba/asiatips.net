@@ -90,8 +90,8 @@ export default function ArticleDetail({
           <article className="relative w-full md:w-3/4 md:pr-4">
             <Image
               className="w-full rounded-xl"
-              height={1280}
               width={1920}
+              height={1280}
               sizes="(min-width: 1360px) 920px, (min-width: 780px) 66.96vw, (min-width: 680px) 608px, calc(94.44vw - 15px)"
               src={post.image}
               alt="Article Image"

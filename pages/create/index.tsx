@@ -12,6 +12,7 @@ import 'easymde/dist/easymde.min.css';
 import EasyMDE from 'easymde';
 import { uploadImage } from '@/utils/upload';
 import PostCreationBar from '@/components/Common/PostCreationBar';
+import parseMarkdown from '@/utils/parseMarkdownImage';
 
 export default function CreateArticle() {
   // check login before allow modify
@@ -56,7 +57,12 @@ export default function CreateArticle() {
 
   // handle change content
   const handleContentChanged = (value: string) => {
-    language === 'Vietnamese' ? setViContent(value) : setJaContent(value);
+    const parsedContent = parseMarkdown(value);
+    if (language === 'Vietnamese') {
+      setViContent(parsedContent);
+    } else {
+      setJaContent(parsedContent);
+    }
   };
 
   const handleImageUpload = async (
@@ -96,10 +102,12 @@ export default function CreateArticle() {
           {imageUrl && (
             <Image
               className="w-full rounded-xl"
-              height={1000}
-              width={800}
+              width={1920}
+              height={1280}
+              sizes="(min-width: 1360px) 920px, (min-width: 780px) 66.96vw, (min-width: 680px) 608px, calc(94.44vw - 15px)"
               src={imageUrl}
               alt="Article Image"
+              priority
             />
           )}
           <h1 className="text-4xl font-bold my-4">{title}</h1>

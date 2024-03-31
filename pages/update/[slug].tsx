@@ -13,6 +13,7 @@ import { useSession } from 'next-auth/react';
 import { uploadImage } from '@/utils/upload';
 import PostCreationBar from '@/components/Common/PostCreationBar';
 import { post_translation } from '@prisma/client';
+import parseMarkdown from '@/utils/parseMarkdownImage';
 
 interface Props {
   params: any;
@@ -123,7 +124,12 @@ export default function UpdateArticle({ post }: MarkdownUpdateProps) {
 
   // handle change content
   const handleContentChanged = (value: string) => {
-    language === 'Vietnamese' ? setViContent(value) : setJaContent(value);
+    const parsedContent = parseMarkdown(value);
+    if (language === 'Vietnamese') {
+      setViContent(parsedContent);
+    } else {
+      setJaContent(parsedContent);
+    }
   };
 
   const handleImageUpload = async (
