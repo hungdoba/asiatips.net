@@ -31,7 +31,7 @@ export default function ArticleDetail({
   post,
 }: ArticleDetailProps) {
   const [hideTableOfContent, setHideTableOfContent] = useState(true);
-  const [isShowControlButton, setShowControlButton] = useState(false);
+  // const [isShowControlButton, setShowControlButton] = useState(false);
 
   const { t } = useTranslation();
 
@@ -120,7 +120,7 @@ export default function ArticleDetail({
             </h2>
             <hr className="mb-2" />
             <Tags clickable />
-            <RecentlyAddedArticles />
+            {/* <RecentlyAddedArticles /> */}
           </article>
           <div className="w-full md:w-1/4">
             <div className="sticky top-24 mb-4">
