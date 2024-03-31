@@ -162,9 +162,8 @@ export default function UpdateArticle({ post }: MarkdownUpdateProps) {
         <div className="w-3/4 prose-lg pr-4">
           {imageUrl && (
             <Image
-              className="w-full rounded-xl"
-              height={1000}
-              width={800}
+              height={1280}
+              width={1920}
               src={imageUrl}
               alt="Article Image"
             />
