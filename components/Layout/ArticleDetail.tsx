@@ -89,7 +89,7 @@ export default function ArticleDetail({
         <div className="md:flex md:flex-row mx-4">
           <article className="w-full md:w-3/4 md:pr-4">
             <Image
-              className="rounded-md"
+              className="w-full rounded-xl"
               height={1280}
               width={1920}
               src={post.image}
