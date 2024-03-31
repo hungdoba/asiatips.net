@@ -38,7 +38,7 @@ const TableOfContents = ({
                 onClick={setHidden}
                 id={href}
                 href={href}
-                className="block py-1 hover:text-green-700 rounded-lg"
+                className="block pt-2 hover:text-green-700 rounded-lg"
                 {...props}
               />
             ),

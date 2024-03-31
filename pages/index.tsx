@@ -66,7 +66,11 @@ function HomePage({ posts }: HomePageProps) {
               {posts &&
                 posts.map((post: post, index: number) => (
                   <div key={index}>
-                    <ArticleCard key={post.url} post={post} />
+                    <ArticleCard
+                      priority={index === 0}
+                      key={index}
+                      post={post}
+                    />
                   </div>
                 ))}
             </div>

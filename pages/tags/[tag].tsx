@@ -39,8 +39,8 @@ const TagPage = ({ posts, tag }: Props) => {
           <div className="flex flex-col md:flex-row">
             <div className="w-full md:w-3/4 md:mr-2">
               {posts &&
-                posts.map((post: post) => (
-                  <ArticleCard key={post.url} post={post} />
+                posts.map((post: post, index: number) => (
+                  <ArticleCard key={index} post={post} />
                 ))}
             </div>
 

@@ -4,11 +4,14 @@ import { useRouter } from 'next/router';
 
 import Tags from '../Common/Tags';
 import { convert } from '@/utils/slugify';
+import { useSession } from 'next-auth/react';
 
 const ArticleCard: React.FC<{ post: any; priority?: boolean }> = ({
   post,
   priority = false,
 }) => {
+  const { data: session, status } = useSession();
+  let admin = status === 'authenticated';
   const router = useRouter();
 
   const viTranslation = post.post_translation.find(
@@ -61,13 +64,15 @@ const ArticleCard: React.FC<{ post: any; priority?: boolean }> = ({
           </div>
         </div>
       </Link>
-      <Link
-        type="button"
-        href={`/update/${post.url}`}
-        className="absolute bottom-8 right-4 z-50 bg-blue-600 text-white  text-xs mr-2 mb-2 px-2.5 py-0.5 rounded"
-      >
-        Update
-      </Link>
+      {admin && (
+        <Link
+          type="button"
+          href={`/update/${post.url}`}
+          className="absolute bottom-8 right-4 z-50 bg-blue-600 text-white  text-xs mr-2 mb-2 px-2.5 py-0.5 rounded"
+        >
+          Update
+        </Link>
+      )}
     </div>
   );
 };

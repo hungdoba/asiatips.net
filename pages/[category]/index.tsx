@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { prisma } from '@/utils/db';
 import { post } from '@prisma/client';
 import { convert } from '@/utils/slugify';
@@ -94,9 +93,7 @@ function CategoryPage({ postsInit, category }: CategoryProps) {
             <div className="w-full md:w-3/4 md:mr-2">
               {posts &&
                 posts.map((post: post, index: number) => (
-                  <div key={index}>
-                    <ArticleCard key={post.url} post={post} />
-                  </div>
+                  <ArticleCard priority={index === 0} key={index} post={post} />
                 ))}
             </div>
 

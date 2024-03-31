@@ -26,8 +26,8 @@ export default function RecentlyAddedArticles() {
 
         {relatedPosts && (
           <div className="w-full ">
-            {relatedPosts.map((post) => (
-              <ArticleCard key={post.url} post={post} />
+            {relatedPosts.map((post: any, index: number) => (
+              <ArticleCard key={index} post={post} />
             ))}
           </div>
         )}

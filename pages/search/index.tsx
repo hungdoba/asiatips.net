@@ -58,8 +58,8 @@ export default function SearchPage() {
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:w-3/4 md:mr-2">
             {results &&
-              results.map((post: post) => (
-                <ArticleCard key={post.url} post={post} />
+              results.map((post: post, index: number) => (
+                <ArticleCard key={index} post={post} />
               ))}
           </div>
 
