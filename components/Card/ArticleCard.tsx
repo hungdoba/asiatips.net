@@ -27,8 +27,9 @@ const ArticleCard: React.FC<{ post: any }> = ({ post }) => {
             src={post.image}
             alt="Post Image"
             className="w-full h-full rounded-lg object-cover object-center"
-            height={200}
-            width={300}
+            height={1280}
+            width={1920}
+            sizes="(min-width: 1360px) 297px, (min-width: 780px) 22.32vw, (min-width: 680px) 202px, calc(31.39vw - 5px)"
             style={{ objectFit: 'cover' }}
           />
         </div>
