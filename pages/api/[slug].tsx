@@ -66,18 +66,16 @@ export const getStaticProps = async (context: any) => {
           mdxOptions: {
             rehypePlugins: [
               rehypeSlug,
-              remarkEmoji,
               [rehypeAutolinkHeadings, { behavior: 'wrap' }],
               rehypeHighlight,
             ],
-            remarkPlugins: [remarkGfm, remarkToc, remarkImages],
+            remarkPlugins: [remarkGfm, remarkToc, remarkEmoji, remarkImages],
           },
         }),
         serialize(viTranslation.tableOfContents, {
           mdxOptions: {
             rehypePlugins: [
               rehypeSlug,
-              remarkEmoji,
               [rehypeAutolinkHeadings, { behavior: 'wrap' }],
               rehypeHighlight,
             ],
@@ -98,7 +96,7 @@ export const getStaticProps = async (context: any) => {
               [rehypeAutolinkHeadings, { behavior: 'wrap' }],
               rehypeHighlight,
             ],
-            remarkPlugins: [remarkGfm, remarkToc, remarkImages],
+            remarkPlugins: [remarkGfm, remarkToc, remarkEmoji, remarkImages],
           },
         }),
         serialize(jaTranslation.tableOfContents, {

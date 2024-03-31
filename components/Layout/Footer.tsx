@@ -13,7 +13,7 @@ export default function Footer() {
         <div className="w-full mx-auto flex">
           <div className="flex w-1/2">
             <div className="px-3 md:px-0">
-              <h3 className="font-bold text-blue-800 text-lg">Asiatips.net</h3>
+              <h1 className="font-bold text-blue-800 text-lg">Asiatips.net</h1>
               {isAdmin ? (
                 <div>
                   <button
@@ -44,13 +44,13 @@ export default function Footer() {
           </div>
           <div className="flex w-1/2 text-right">
             <div className="px-3 md:px-0 ml-auto">
-              <h3 className="font-bold text-blue-800">{t('title:link')}</h3>
+              {/* <h2 className="font-bold text-blue-800">{t('title:link')}</h2>
               <Link
                 className="py-3 inline-block no-underline hover:text-black hover:underline"
                 href="/about"
               >
                 {t('link:aboutme')}
-              </Link>
+              </Link> */}
               <p>Copyright: 2023</p>
             </div>
           </div>
