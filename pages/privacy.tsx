@@ -8,7 +8,7 @@ export default function Privacy() {
       <SEO
         title="Privacy Policy - Our Commitment to Your Privacy"
         description="At Asiatips.net, we are committed to protecting your privacy. Our privacy policy outlines how we collect, use, and protect your personal information. Read our policy to learn more about our commitment to safeguarding your privacy."
-        image="https://www.Asiatips.net/card.jpg"
+        image="https://www.Asiatips.net/card.png"
         url="https://Asiatips.net/privacy"
       />
       <Navbar />

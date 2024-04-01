@@ -68,9 +68,9 @@ export default function Contact() {
   return (
     <>
       <SEO
-        title="Contact Us - Get in Touch with Our Team"
-        description="Have a question or comment? Contact our team today to learn more about our services and how we can help you. We would love to hear from you!"
-        image="https://www.Asiatips.net/card.jpg"
+        title="Contact Us - Get in Touch with me"
+        description="Have a question or comment? Contact me today to learn more about our services and how we can help you. We would love to hear from you!"
+        image="https://www.Asiatips.net/card.png"
         url="https://Asiatips.net/contact"
       />
       <Navbar />

@@ -78,7 +78,7 @@ function Photo({ currentPhoto }: PhotoProps) {
       <SEO
         title="Asiatips | Ảnh chill Nhật Việt"
         description="Blog chia sẻ kiến thức và mẹo hay khi sống ở Nhật dành cho người nước ngoài"
-        image="https://www.asiatips.net/card.jpg"
+        image="https://www.asiatips.net/card.png"
         url="https://asiatips.net/knowledge"
       />
       <main className="mx-auto max-w-[1960px] p-4">

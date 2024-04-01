@@ -25,7 +25,7 @@ const TagPage = ({ posts, tag }: Props) => {
       <SEO
         title="Asiatips | Mẹo hay ở Nhật"
         description="Blog chia sẻ kiến thức và mẹo hay khi sống ở Nhật dành cho người nước ngoài"
-        image="https://www.asiatips.net/card.jpg"
+        image="https://www.asiatips.net/card.png"
         url="https://asiatips.net/knowledge"
       />
       <Navbar />

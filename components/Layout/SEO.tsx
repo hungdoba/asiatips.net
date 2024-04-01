@@ -15,7 +15,7 @@ function SEO({ title, description, image, url }: SEOProps) {
   const metaDescription = description || siteDescription;
   const metaTitle = title ? `${title} | ${siteTitle}` : siteTitle;
   const metaUrl = url || 'https://www.asiatips.net';
-  const metaImage = image || 'https://www.asiatips.net/card.jpg';
+  const metaImage = image || 'https://www.asiatips.net/card.png';
 
   return (
     <Head>

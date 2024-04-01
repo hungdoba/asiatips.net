@@ -5,9 +5,9 @@ export default function About() {
   return (
     <>
       <SEO
-        title="Oops! Page Not Found | Asiatips HYIP Monitor"
-        description="We're sorry, the page you're looking for doesn't seem to exist. Please check the URL and try again, or use our navigation menu to find what you're looking for. If you're still having trouble, feel free to contact us for further assistance. Thank you for using Asiatips HYIP Monitor!"
-        image="https://www.Asiatips.net/card.jpg"
+        title="Oops! Page Not Found | Asiatips Japan living tips"
+        description="We're sorry, the page you're looking for doesn't seem to exist. Please check the URL and try again, or use our navigation menu to find what you're looking for. If you're still having trouble, feel free to contact us for further assistance. Thank you for using Asiatips!"
+        image="https://www.Asiatips.net/card.png"
         url="https://Asiatips.net/404"
       />
       <Navbar />

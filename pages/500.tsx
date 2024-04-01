@@ -5,9 +5,9 @@ export default function About() {
   return (
     <>
       <SEO
-        title="Server Error - 500 | Asiatips HYIP Monitor"
+        title="Server Error - 500 | Asiatips Japan tips"
         description="Oops, something went wrong on our server. We are working to fix the issue and apologize for the inconvenience. Please try again later or contact us for assistance."
-        image="https://www.Asiatips.net/card.jpg"
+        image="https://www.Asiatips.net/card.png"
         url="https://Asiatips.net/500"
       />
       <Navbar />

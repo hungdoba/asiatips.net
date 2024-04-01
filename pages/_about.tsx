@@ -22,9 +22,9 @@ export default function About() {
   return (
     <>
       <SEO
-        title="About Us - Asiatips.net"
-        description=""
-        image="https://www.Asiatips.net/card.jpg"
+        title="About admin - Asiatips.net"
+        description="More information about admin"
+        image="https://www.Asiatips.net/card.png"
         url="https://Asiatips.net/about"
       />
       <Navbar />
@@ -37,7 +37,7 @@ export default function About() {
             height={200}
           />
         </div>
-        <h1 className="text-4xl font-bold mt-6"> Hung Ba </h1>
+        <h1 className="text-4xl font-bold mt-6"> Admin </h1>
         <h2 className="text-xl text-gray-500">{t('aboutme:jobTitle')}</h2>
         <p className="max-w-2xl text-center text-gray-700 mt-4">
           {t('aboutme:thankyou')}

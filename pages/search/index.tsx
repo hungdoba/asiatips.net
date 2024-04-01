@@ -49,7 +49,7 @@ export default function SearchPage() {
       <SEO
         title="Rgeen.com Online Tool Review"
         description="Unleash your digital potential with our trusted online tool reviews. Compare, evaluate, and find the perfect solutions for enhancing productivity and streamlining workflows. Trust our expert evaluations and user feedback to make informed decisions. Discover the ultimate resource for unbiased tool recommendations."
-        image="https://www.rgeen.com/card.jpg"
+        image="https://www.rgeen.com/card.png"
         url="https://rgeen.com/knowledge"
       />
       <Navbar />
