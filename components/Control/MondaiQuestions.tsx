@@ -6,6 +6,7 @@ export default function MondaiQuestions({
   mondais,
   questions,
   onOptionSelect,
+  selectedOptions,
 }: MondaiQuestionsProps) {
   if (questions.length === 0) {
     return <p>No questions available for this mondai.</p>;
@@ -74,6 +75,7 @@ export default function MondaiQuestions({
                   <h3>{qs.question_content}</h3>
                 </div>
                 <AnswerOption
+                  selectedOptions={selectedOptions}
                   question={qs}
                   onOptionSelect={handleOptionSelect}
                 />

@@ -1,14 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { jlpt_question } from '@prisma/client';
 import { renderJLPTContent } from '@/utils/render';
 
 interface AnswerOptionProps {
   question: jlpt_question;
   onOptionSelect: (question_number: number, optionNumber: number) => void;
+  selectedOptions?: { [key: number]: number };
 }
 
-function AnswerOption({ question, onOptionSelect }: AnswerOptionProps) {
-  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+function AnswerOption({
+  question,
+  onOptionSelect,
+  selectedOptions = {},
+}: AnswerOptionProps) {
+  const [selectedOption, setSelectedOption] = useState<
+    number | null | undefined
+  >(null);
+
+  useEffect(() => {
+    if (
+      selectedOptions &&
+      selectedOptions[question.question_number] != undefined
+    ) {
+      setSelectedOption(selectedOptions[question.question_number]);
+    }
+  }, [selectedOptions]);
 
   const handleOptionClick = (optionNumber: number) => {
     setSelectedOption(optionNumber);

@@ -7,11 +7,14 @@ import React, { useEffect, useState } from 'react';
 import { jlpt_mondai, jlpt_question } from '@prisma/client';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import MondaiQuestions from '@/components/Control/MondaiQuestions';
+import Cookies from 'js-cookie';
 
 // Component Props
 interface JLPTProps {
   mondais: jlpt_mondai[];
   questions: jlpt_question[];
+  year: string;
+  month: string;
 }
 
 // Static Paths
@@ -59,6 +62,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       props: {
         mondais: JSON.parse(JSON.stringify(mondais)), // Ensuring the data is serializable
         questions: JSON.parse(JSON.stringify(questions)),
+        year,
+        month,
       },
     };
   } catch (error) {
@@ -69,7 +74,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 };
 
-const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions }) => {
+const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
+  const cookieKey = `selectedOptions_${year}_${month}`;
+
   const mondaiComponents = [
     { Component: Mondai, number: 1 },
     { Component: Mondai, number: 2 },
@@ -86,23 +93,25 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions }) => {
     { Component: MondaiQuestions, number: 13 },
   ];
 
+  const initialSelectedOptions = Cookies.get(cookieKey);
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: number]: number;
-  }>({});
+  }>(initialSelectedOptions ? JSON.parse(initialSelectedOptions) : {});
 
   const handleOptionSelect = (
     question_number: number,
     optionNumber: number
   ) => {
-    setSelectedOptions((prevSelectedOptions) => ({
-      ...prevSelectedOptions,
-      [question_number]: optionNumber,
-    }));
+    setSelectedOptions((prevSelectedOptions) => {
+      const updatedOptions = {
+        ...prevSelectedOptions,
+        [question_number]: optionNumber,
+      };
+      // Save updated options to cookies
+      Cookies.set(cookieKey, JSON.stringify(updatedOptions));
+      return updatedOptions;
+    });
   };
-
-  useEffect(() => {
-    console.log(selectedOptions);
-  }, [selectedOptions]);
 
   return (
     <>
@@ -133,6 +142,7 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions }) => {
               key={number}
               mondais={filteredMondais}
               questions={filteredQuestions}
+              selectedOptions={selectedOptions}
             />
           );
         })}

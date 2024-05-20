@@ -3,7 +3,11 @@ import AnswerOption from './AnswerOption';
 import { MondaiProps } from '@/utils/types';
 import { renderJLPTContent } from '@/utils/render';
 
-export default function Mondai({ questions, onOptionSelect }: MondaiProps) {
+export default function Mondai({
+  questions,
+  onOptionSelect,
+  selectedOptions,
+}: MondaiProps) {
   if (questions.length === 0) {
     return <p>No questions available for this mondai.</p>;
   }
@@ -49,6 +53,7 @@ export default function Mondai({ questions, onOptionSelect }: MondaiProps) {
               <h3>{renderJLPTContent(question.question_content)}</h3>
             </div>
             <AnswerOption
+              selectedOptions={selectedOptions}
               question={question}
               onOptionSelect={handleOptionSelect}
             />
