@@ -63,7 +63,7 @@ model jlpt_question {
   option_2         String?
   option_3         String?
   option_4         String?
-  answer           String?
+  answer           Int
   explaination     String?
   note             String?
   id               Int     @id @default(autoincrement())

@@ -6,12 +6,14 @@ interface AnswerOptionProps {
   question: jlpt_question;
   onOptionSelect: (question_number: number, optionNumber: number) => void;
   selectedOptions?: { [key: number]: number };
+  showAnswer?: boolean | null;
 }
 
 function AnswerOption({
   question,
   onOptionSelect,
   selectedOptions = {},
+  showAnswer = true,
 }: AnswerOptionProps) {
   const [selectedOption, setSelectedOption] = useState<
     number | null | undefined
@@ -35,8 +37,12 @@ function AnswerOption({
   };
 
   const optionClasses = (optionNumber: number) =>
-    `flex mr-4 mb-2 px-2 rounded-lg hover:cursor-pointer ${
+    `flex mr-4 mb-2 px-2 rounded-lg hover:cursor-pointer border ${
       selectedOption === optionNumber ? 'bg-cyan-300' : 'hover:bg-cyan-100'
+    } ${
+      showAnswer && question.answer === optionNumber
+        ? ' border-green-500'
+        : 'border-transparent'
     }`;
 
   return (
