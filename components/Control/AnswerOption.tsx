@@ -27,6 +27,9 @@ function AnswerOption({
   }, [selectedOptions]);
 
   const handleOptionClick = (optionNumber: number) => {
+    if (selectedOption === optionNumber) {
+      optionNumber = 0;
+    }
     setSelectedOption(optionNumber);
     onOptionSelect(question.question_number, optionNumber);
   };

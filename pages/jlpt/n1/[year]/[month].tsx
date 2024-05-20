@@ -3,7 +3,7 @@ import SEO from '@/components/Layout/SEO';
 import Navbar from '@/components/Layout/Navbar';
 import Footer from '@/components/Layout/Footer';
 import Mondai from '@/components/Control/Mondai';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { jlpt_mondai, jlpt_question } from '@prisma/client';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import MondaiQuestions from '@/components/Control/MondaiQuestions';
