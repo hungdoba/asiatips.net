@@ -1,3 +1,21 @@
+import { jlpt_mondai, jlpt_question } from '@prisma/client';
+
+export interface MondaiProps {
+  questions: jlpt_question[];
+  onOptionSelect: (question_number: number, optionNumber: number) => void;
+}
+
+export interface MondaiQuestionsProps {
+  mondais: jlpt_mondai[];
+  questions: jlpt_question[];
+  onOptionSelect: (question_number: number, optionNumber: number) => void;
+}
+export interface MondaiQuestionProps {
+  mondais: jlpt_mondai[];
+  questions: jlpt_question[];
+  onOptionSelect: (question_number: number, optionNumber: number) => void;
+}
+
 export interface ImageProps {
   id: number;
   height: string;
