@@ -1,6 +1,7 @@
 import NumberBox from './NumberBox';
 import AnswerOption from './AnswerOption';
 import { MondaiProps } from '@/utils/types';
+import { renderJLPTContent } from '@/utils/render';
 
 export default function Mondai({ questions, onOptionSelect }: MondaiProps) {
   if (questions.length === 0) {
@@ -45,7 +46,7 @@ export default function Mondai({ questions, onOptionSelect }: MondaiProps) {
           <div key={question.question_number} className="mb-4">
             <div className="flex flex-row mb-2">
               <NumberBox number={question.question_number} />
-              <h3>{question.question_content}</h3>
+              <h3>{renderJLPTContent(question.question_content)}</h3>
             </div>
             <AnswerOption
               question={question}

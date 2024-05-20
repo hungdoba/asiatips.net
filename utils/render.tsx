@@ -1,8 +1,15 @@
-export const renderWithUnderline = (text: string | null) => {
+export const renderJLPTContent = (text: string | null) => {
   if (text == null) {
     return '';
   }
 
+  // Convert star
+  text = text.replace('_*_', '＿★＿');
+
+  // Convert parenthese
+  text = text.replace(/\((.*?)\)/g, '（　$1　）');
+
+  // Convert [] to underline
   const parts = text.split(/(\[.*?\])/);
 
   return parts.map((part, index) => {
@@ -12,18 +19,3 @@ export const renderWithUnderline = (text: string | null) => {
     return part;
   });
 };
-
-export function convertToFullWidthStar(text: string | null) {
-  if (text == null) {
-    return '';
-  }
-
-  return text.replace('_*_', '＿★＿');
-}
-
-export function convertToFullWidthParentheses(text: string | null) {
-  if (text == null) {
-    return '';
-  }
-  return text.replace(/\((.*?)\)/g, '（　$1　）');
-}
