@@ -126,7 +126,7 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
         url="https://asiatips.net/knowledge"
       />
       <Navbar />
-      <div className="flex flex-col mx-4 mt-20 text-wrap lg:max-w-4xl lg:mx-auto underline-offset-4">
+      <div className="no-select flex flex-col mx-4 mt-20 text-wrap lg:max-w-4xl lg:mx-auto underline-offset-4">
         {mondaiComponents.map(({ Component, number }) => {
           const isEightOrNine = number === 8 || number === 9;
           const filteredMondais = mondais.filter(({ mondai_number }) =>

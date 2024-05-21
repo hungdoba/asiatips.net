@@ -69,7 +69,7 @@ const MondaiComponent: React.FC<MondaiComponentProps> = ({
               question={question}
               onOptionSelect={handleOptionSelect}
               selectedOptions={selectedOptions}
-              showAnswer={true}
+              initialShowAnswer={false}
             />
           ))}
         </div>
@@ -101,7 +101,7 @@ const MondaiComponent: React.FC<MondaiComponentProps> = ({
                   question={question}
                   onOptionSelect={handleOptionSelect}
                   selectedOptions={selectedOptions}
-                  showAnswer={true}
+                  initialShowAnswer={false}
                 />
               ))}
           </div>

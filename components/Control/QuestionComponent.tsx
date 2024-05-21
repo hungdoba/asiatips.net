@@ -11,20 +11,20 @@ function QuestionComponent({
   question,
   onOptionSelect,
   selectedOptions = {},
-  showAnswer = true,
+  initialShowAnswer = false,
 }: QuestionComponentProps) {
   const [selectedOption, setSelectedOption] = useState<
     number | null | undefined
   >(null);
   const [showExplain, setShowExplain] = useState<boolean>(false);
+  const [showAnswer, setShowAnswer] = useState<boolean>(false);
 
   useEffect(() => {
-    if (
-      selectedOptions &&
-      selectedOptions[question.question_number] != undefined
-    ) {
-      setSelectedOption(selectedOptions[question.question_number]);
-    }
+    setShowAnswer(initialShowAnswer);
+  }, [initialShowAnswer]);
+
+  useEffect(() => {
+    setSelectedOption(selectedOptions[question.question_number] ?? null);
   }, [selectedOptions]);
 
   const handleOptionClick = (optionNumber: number) => {
@@ -36,16 +36,18 @@ function QuestionComponent({
   };
 
   const optionClasses = (optionNumber: number) =>
-    `flex  mb-2 px-2 rounded-lg hover:cursor-pointer border ${
+    `flex  mb-2 px-2 rounded-lg hover:cursor-pointer border 
+    ${
       selectedOption === optionNumber
         ? showAnswer && question.answer !== optionNumber
           ? 'bg-red-300'
           : 'bg-cyan-300'
         : 'hover:bg-cyan-100'
-    } ${
+    } 
+    ${
       showAnswer && question.answer === optionNumber
         ? ' border-green-500'
-        : 'border-transparent'
+        : ' border-transparent'
     }`;
 
   const explainClasses = (optionNumber: number) =>
@@ -59,12 +61,21 @@ function QuestionComponent({
     setShowExplain(!showExplain);
   }
 
+  function handleShowAnswer(): void {
+    setShowAnswer(!showAnswer);
+  }
+
   return (
     <div className="mb-4">
       <div className="flex flex-row mb-2">
         <NumberBox number={question.question_number} />
         <h3>{question.question_content}</h3>
-        <LightBulbIcon className="w-5 h-5 text-yellow-500 cursor-pointer rounded-xl hover:bg-yellow-200" />
+        <LightBulbIcon
+          className={`w-5 h-5 text-yellow-500 cursor-pointer rounded-xl hover:bg-yellow-200 ${
+            showAnswer && 'bg-yellow-200'
+          }`}
+          onClick={handleShowAnswer}
+        />
       </div>
       <div className="mx-2">
         <div className="flex flex-wrap justify-between">

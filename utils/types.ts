@@ -11,7 +11,7 @@ export interface QuestionComponentProps {
   question: jlpt_question;
   onOptionSelect: (question_number: number, optionNumber: number) => void;
   selectedOptions?: { [key: number]: number };
-  showAnswer?: boolean | null;
+  initialShowAnswer?: boolean;
 }
 
 export interface ImageProps {
