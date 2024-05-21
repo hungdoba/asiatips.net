@@ -2,12 +2,11 @@ import { prisma } from '@/utils/db';
 import SEO from '@/components/Layout/SEO';
 import Navbar from '@/components/Layout/Navbar';
 import Footer from '@/components/Layout/Footer';
-import Mondai from '@/components/Control/Mondai';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { jlpt_mondai, jlpt_question } from '@prisma/client';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import MondaiQuestions from '@/components/Control/MondaiQuestions';
 import Cookies from 'js-cookie';
+import MondaiComponent from '@/components/Control/MondaiComponent';
 
 // Component Props
 interface JLPTProps {
@@ -76,27 +75,16 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
   const cookieKey = `selectedOptions_${year}_${month}`;
-
-  const mondaiComponents = [
-    { Component: Mondai, number: 1 },
-    { Component: Mondai, number: 2 },
-    { Component: Mondai, number: 3 },
-    { Component: Mondai, number: 4 },
-    { Component: Mondai, number: 5 },
-    { Component: Mondai, number: 6 },
-    { Component: MondaiQuestions, number: 7 },
-    { Component: MondaiQuestions, number: 8 },
-    { Component: MondaiQuestions, number: 9 },
-    { Component: MondaiQuestions, number: 10 },
-    { Component: MondaiQuestions, number: 11 },
-    { Component: MondaiQuestions, number: 12 },
-    { Component: MondaiQuestions, number: 13 },
-  ];
-
-  const initialSelectedOptions = Cookies.get(cookieKey);
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: number]: number;
-  }>(initialSelectedOptions ? JSON.parse(initialSelectedOptions) : {});
+  }>({});
+
+  useEffect(() => {
+    const initialSelectedOptions = Cookies.get(cookieKey);
+    if (initialSelectedOptions) {
+      setSelectedOptions(JSON.parse(initialSelectedOptions));
+    }
+  }, [cookieKey]);
 
   const handleOptionSelect = (
     question_number: number,
@@ -112,6 +100,22 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
       return updatedOptions;
     });
   };
+
+  const mondaiComponents = [
+    { Component: MondaiComponent, number: 1 },
+    { Component: MondaiComponent, number: 2 },
+    { Component: MondaiComponent, number: 3 },
+    { Component: MondaiComponent, number: 4 },
+    { Component: MondaiComponent, number: 5 },
+    { Component: MondaiComponent, number: 6 },
+    { Component: MondaiComponent, number: 7 },
+    { Component: MondaiComponent, number: 8 },
+    { Component: MondaiComponent, number: 9 },
+    { Component: MondaiComponent, number: 10 },
+    { Component: MondaiComponent, number: 11 },
+    { Component: MondaiComponent, number: 12 },
+    { Component: MondaiComponent, number: 13 },
+  ];
 
   return (
     <>
@@ -138,11 +142,11 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
 
           return (
             <Component
-              onOptionSelect={handleOptionSelect}
               key={number}
               mondais={filteredMondais}
               questions={filteredQuestions}
               selectedOptions={selectedOptions}
+              onOptionSelect={handleOptionSelect}
             />
           );
         })}
