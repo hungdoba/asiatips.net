@@ -7,6 +7,13 @@ export interface MondaiComponentProps {
   selectedOptions?: { [key: number]: number };
 }
 
+export interface QuestionComponentProps {
+  question: jlpt_question;
+  onOptionSelect: (question_number: number, optionNumber: number) => void;
+  selectedOptions?: { [key: number]: number };
+  showAnswer?: boolean | null;
+}
+
 export interface ImageProps {
   id: number;
   height: string;

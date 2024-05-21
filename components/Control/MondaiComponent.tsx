@@ -1,9 +1,6 @@
 import React from 'react';
-import NumberBox from './NumberBox';
-import AnswerOption from './AnswerOption';
+import QuestionComponent from './QuestionComponent';
 import { MondaiComponentProps } from '@/utils/types';
-import { renderJLPTContent } from '@/utils/render';
-import { LightBulbIcon } from '@heroicons/react/24/outline';
 
 const getHeaderText = (
   mondai: number,
@@ -67,18 +64,13 @@ const MondaiComponent: React.FC<MondaiComponentProps> = ({
       {mondai < 7 ? (
         <div>
           {questions.map((question) => (
-            <div key={question.question_number} className="mb-4">
-              <div className="flex flex-row mb-2">
-                <NumberBox number={question.question_number} />
-                <h3>{renderJLPTContent(question.question_content)}</h3>
-                <LightBulbIcon className="w-5 h-5 text-yellow-500 cursor-pointer rounded-xl hover:bg-yellow-200" />
-              </div>
-              <AnswerOption
-                selectedOptions={selectedOptions}
-                question={question}
-                onOptionSelect={handleOptionSelect}
-              />
-            </div>
+            <QuestionComponent
+              key={question.question_number}
+              question={question}
+              onOptionSelect={handleOptionSelect}
+              selectedOptions={selectedOptions}
+              showAnswer={true}
+            />
           ))}
         </div>
       ) : (
@@ -103,18 +95,14 @@ const MondaiComponent: React.FC<MondaiComponentProps> = ({
                 (question) =>
                   question.mondai_number === mondais[i].mondai_number
               )
-              .map((qs) => (
-                <div key={qs.question_number} className="mb-4">
-                  <div className="flex flex-row mb-2">
-                    <NumberBox number={qs.question_number} />
-                    <h3>{qs.question_content}</h3>
-                  </div>
-                  <AnswerOption
-                    selectedOptions={selectedOptions}
-                    question={qs}
-                    onOptionSelect={handleOptionSelect}
-                  />
-                </div>
+              .map((question) => (
+                <QuestionComponent
+                  key={question.question_number}
+                  question={question}
+                  onOptionSelect={handleOptionSelect}
+                  selectedOptions={selectedOptions}
+                  showAnswer={true}
+                />
               ))}
           </div>
         ))
