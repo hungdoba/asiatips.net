@@ -7,6 +7,7 @@ import { jlpt_mondai, jlpt_question } from '@prisma/client';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Cookies from 'js-cookie';
 import MondaiComponent from '@/components/Control/MondaiComponent';
+import SettingForm from '@/components/Form/SettingForm';
 
 // Component Props
 interface JLPTProps {
@@ -78,6 +79,7 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: number]: number;
   }>({});
+  const [settingShowHint, setSettingShowHint] = useState(false);
 
   useEffect(() => {
     const initialSelectedOptions = Cookies.get(cookieKey);
@@ -117,6 +119,10 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
     { Component: MondaiComponent, number: 13 },
   ];
 
+  function handleShowHint(showHint: boolean): void {
+    setSettingShowHint(showHint);
+  }
+
   return (
     <>
       <SEO
@@ -147,10 +153,12 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
               questions={filteredQuestions}
               selectedOptions={selectedOptions}
               onOptionSelect={handleOptionSelect}
+              showHint={settingShowHint}
             />
           );
         })}
       </div>
+      <SettingForm onShowHint={handleShowHint} />
       <Footer />
     </>
   );

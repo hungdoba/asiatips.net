@@ -12,6 +12,7 @@ function QuestionComponent({
   onOptionSelect,
   selectedOptions = {},
   initialShowAnswer = false,
+  showHint = false,
 }: QuestionComponentProps) {
   const [selectedOption, setSelectedOption] = useState<
     number | null | undefined
@@ -39,13 +40,13 @@ function QuestionComponent({
     `flex  mb-2 px-2 rounded-lg hover:cursor-pointer border 
     ${
       selectedOption === optionNumber
-        ? showAnswer && question.answer !== optionNumber
+        ? showHint && showAnswer && question.answer !== optionNumber
           ? 'bg-red-300'
           : 'bg-cyan-300'
         : 'hover:bg-cyan-100'
     } 
     ${
-      showAnswer && question.answer === optionNumber
+      showHint && showAnswer && question.answer === optionNumber
         ? ' border-green-500'
         : ' border-transparent'
     }`;
@@ -73,7 +74,7 @@ function QuestionComponent({
         <LightBulbIcon
           className={`w-5 h-5 text-yellow-500 cursor-pointer rounded-xl hover:bg-yellow-200 ${
             showAnswer && 'bg-yellow-200'
-          }`}
+          } ${showHint ? ' block' : ' hidden'}`}
           onClick={handleShowAnswer}
         />
       </div>

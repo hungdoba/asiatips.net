@@ -5,6 +5,7 @@ export interface MondaiComponentProps {
   questions: jlpt_question[];
   onOptionSelect: (question_number: number, optionNumber: number) => void;
   selectedOptions?: { [key: number]: number };
+  showHint?: boolean;
 }
 
 export interface QuestionComponentProps {
@@ -12,6 +13,11 @@ export interface QuestionComponentProps {
   onOptionSelect: (question_number: number, optionNumber: number) => void;
   selectedOptions?: { [key: number]: number };
   initialShowAnswer?: boolean;
+  showHint?: boolean;
+}
+
+export interface SettingFormProps {
+  onShowHint: (showHint: boolean) => void;
 }
 
 export interface ImageProps {
