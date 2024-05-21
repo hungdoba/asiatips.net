@@ -46,6 +46,7 @@ const MondaiComponent: React.FC<MondaiComponentProps> = ({
   onOptionSelect,
   selectedOptions,
   showHint = false,
+  showAllAnswer = false,
 }) => {
   if (questions.length === 0) {
     return <p>No questions available for this mondai.</p>;
@@ -72,6 +73,7 @@ const MondaiComponent: React.FC<MondaiComponentProps> = ({
               selectedOptions={selectedOptions}
               initialShowAnswer={false}
               showHint={showHint}
+              showAllAnswer={showAllAnswer}
             />
           ))}
         </div>

@@ -1,13 +1,13 @@
+import Cookies from 'js-cookie';
 import { prisma } from '@/utils/db';
 import SEO from '@/components/Layout/SEO';
 import Navbar from '@/components/Layout/Navbar';
 import Footer from '@/components/Layout/Footer';
 import React, { useState, useEffect } from 'react';
+import SettingForm from '@/components/Form/SettingForm';
 import { jlpt_mondai, jlpt_question } from '@prisma/client';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import Cookies from 'js-cookie';
 import MondaiComponent from '@/components/Control/MondaiComponent';
-import SettingForm from '@/components/Form/SettingForm';
 
 // Component Props
 interface JLPTProps {
@@ -80,13 +80,7 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
     [key: number]: number;
   }>({});
   const [settingShowHint, setSettingShowHint] = useState(false);
-
-  useEffect(() => {
-    const initialSelectedOptions = Cookies.get(cookieKey);
-    if (initialSelectedOptions) {
-      setSelectedOptions(JSON.parse(initialSelectedOptions));
-    }
-  }, [cookieKey]);
+  const [settingShowAllAnswer, setSettingShowAllAnswer] = useState(false);
 
   const handleOptionSelect = (
     question_number: number,
@@ -123,6 +117,31 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
     setSettingShowHint(showHint);
   }
 
+  function handleShowAllAnswer(showAllAnswer: boolean): void {
+    setSettingShowAllAnswer(showAllAnswer);
+  }
+
+  // useEffect(() => {
+  //   const initialSelectedOptions = Cookies.get(cookieKey);
+  //   if (initialSelectedOptions) {
+  //     setSelectedOptions(JSON.parse(initialSelectedOptions));
+  //   }
+  // }, [cookieKey]);
+  function handleShowLastChosen(showLastChosen: boolean): void {
+    if (showLastChosen) {
+      const initialSelectedOptions = Cookies.get(cookieKey);
+      if (initialSelectedOptions) {
+        setSelectedOptions(JSON.parse(initialSelectedOptions));
+      }
+    } else {
+      const resetOptions: { [key: number]: number } = {};
+      for (let i = 1; i <= 80; i++) {
+        resetOptions[i] = 0;
+      }
+      setSelectedOptions(resetOptions);
+    }
+  }
+
   return (
     <>
       <SEO
@@ -154,11 +173,16 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
               selectedOptions={selectedOptions}
               onOptionSelect={handleOptionSelect}
               showHint={settingShowHint}
+              showAllAnswer={settingShowAllAnswer}
             />
           );
         })}
       </div>
-      <SettingForm onShowHint={handleShowHint} />
+      <SettingForm
+        onShowHint={handleShowHint}
+        onShowAllAnswer={handleShowAllAnswer}
+        onShowLastChosen={handleShowLastChosen}
+      />
       <Footer />
     </>
   );

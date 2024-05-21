@@ -13,6 +13,7 @@ function QuestionComponent({
   selectedOptions = {},
   initialShowAnswer = false,
   showHint = false,
+  showAllAnswer = false,
 }: QuestionComponentProps) {
   const [selectedOption, setSelectedOption] = useState<
     number | null | undefined
@@ -46,7 +47,9 @@ function QuestionComponent({
         : 'hover:bg-cyan-100'
     } 
     ${
-      showHint && showAnswer && question.answer === optionNumber
+      showAllAnswer && question.answer === optionNumber
+        ? ' border-green-500'
+        : showHint && showAnswer && question.answer === optionNumber
         ? ' border-green-500'
         : ' border-transparent'
     }`;
@@ -70,7 +73,7 @@ function QuestionComponent({
     <div className="mb-4">
       <div className="flex flex-row mb-2">
         <NumberBox number={question.question_number} />
-        <h3>{question.question_content}</h3>
+        <h3>{renderJLPTContent(question.question_content)}</h3>
         <LightBulbIcon
           className={`w-5 h-5 text-yellow-500 cursor-pointer rounded-xl hover:bg-yellow-200 ${
             showAnswer && 'bg-yellow-200'
