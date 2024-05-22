@@ -1,11 +1,15 @@
-import {
-  LightBulbIcon,
-  QuestionMarkCircleIcon,
-} from '@heroicons/react/24/outline';
 import NumberBox from './NumberBox';
 import { useEffect, useState } from 'react';
 import { renderJLPTContent } from '@/utils/render';
 import { QuestionComponentProps } from '@/utils/types';
+
+// Import icons
+import { BookmarkIcon as BookmarkIconSolid } from '@heroicons/react/24/solid';
+import { BookmarkIcon as BookmarkIconOutline } from '@heroicons/react/24/outline';
+import { LightBulbIcon as LightBulbIconSolid } from '@heroicons/react/24/solid';
+import { LightBulbIcon as LightBulbIconOutline } from '@heroicons/react/24/outline';
+import { QuestionMarkCircleIcon as QuestionMarkCircleIconSolid } from '@heroicons/react/24/solid';
+import { QuestionMarkCircleIcon as QuestionMarkCircleIconOutline } from '@heroicons/react/24/outline';
 
 function QuestionComponent({
   question,
@@ -13,6 +17,7 @@ function QuestionComponent({
   selectedOptions = {},
   initialShowAnswer = false,
   showHint = false,
+  showBookmark = false,
   showAllAnswer = false,
 }: QuestionComponentProps) {
   const [selectedOption, setSelectedOption] = useState<
@@ -20,6 +25,7 @@ function QuestionComponent({
   >(null);
   const [showExplain, setShowExplain] = useState<boolean>(false);
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
+  const [bookmark, setBookmark] = useState<boolean>(false);
 
   useEffect(() => {
     setShowAnswer(initialShowAnswer);
@@ -54,13 +60,6 @@ function QuestionComponent({
         : ' border-transparent'
     }`;
 
-  const explainClasses = (optionNumber: number) =>
-    `flex h-6 w-6 text-green-500 ml-2 cursor-pointer rounded-xl hover:bg-green-200 ${
-      showAnswer && question.explaination && question.answer === optionNumber
-        ? 'block'
-        : 'hidden'
-    } ${showExplain && ' bg-green-200'}`;
-
   function handleShowExpain(): void {
     setShowExplain(!showExplain);
   }
@@ -69,17 +68,44 @@ function QuestionComponent({
     setShowAnswer(!showAnswer);
   }
 
+  function handleBookmark(): void {
+    setBookmark(!bookmark);
+  }
+
   return (
     <div className="mb-4">
       <div className="flex flex-row mb-2">
         <NumberBox number={question.question_number} />
         <h3>{renderJLPTContent(question.question_content)}</h3>
-        <LightBulbIcon
-          className={`w-5 h-5 text-yellow-500 cursor-pointer rounded-xl hover:bg-yellow-200 ${
-            showAnswer && 'bg-yellow-200'
-          } ${showHint ? ' block' : ' hidden'}`}
-          onClick={handleShowAnswer}
-        />
+
+        {showBookmark && (
+          <div>
+            {bookmark ? (
+              <BookmarkIconSolid
+                className="w-5 h-5 ml-2 text-blue-600 cursor-pointer"
+                onClick={handleBookmark}
+              />
+            ) : (
+              <BookmarkIconOutline
+                className="w-5 h-5 ml-2 text-blue-600 cursor-pointer"
+                onClick={handleBookmark}
+              />
+            )}
+          </div>
+        )}
+
+        {showHint && (
+          <div
+            onClick={handleShowAnswer}
+            className="cursor-pointer text-yellow-500 ml-2"
+          >
+            {showAnswer ? (
+              <LightBulbIconSolid className="w-5 h-5" />
+            ) : (
+              <LightBulbIconOutline className="w-5 h-5" />
+            )}
+          </div>
+        )}
       </div>
       <div className="mx-2">
         <div className="flex flex-wrap justify-between">
@@ -91,10 +117,19 @@ function QuestionComponent({
               <div className="mr-4">1</div>
               <div>{renderJLPTContent(question.option_1)}</div>
             </div>
-            <QuestionMarkCircleIcon
-              className={explainClasses(1)}
-              onClick={handleShowExpain}
-            />
+
+            {showAnswer && question.explaination && question.answer === 1 && (
+              <div
+                onClick={handleShowExpain}
+                className="flex h-6 w-6 text-green-500 ml-2 cursor-pointer rounded-xl"
+              >
+                {showExplain ? (
+                  <QuestionMarkCircleIconSolid />
+                ) : (
+                  <QuestionMarkCircleIconOutline />
+                )}
+              </div>
+            )}
           </div>
           <div className="flex flex-row mr-4">
             <div
@@ -104,10 +139,18 @@ function QuestionComponent({
               <div className="mr-4">2</div>
               <div>{renderJLPTContent(question.option_2)}</div>
             </div>
-            <QuestionMarkCircleIcon
-              className={explainClasses(2)}
-              onClick={handleShowExpain}
-            />
+            {showAnswer && question.explaination && question.answer === 2 && (
+              <div
+                onClick={handleShowExpain}
+                className="flex h-6 w-6 text-green-500 ml-2 cursor-pointer rounded-xl"
+              >
+                {showExplain ? (
+                  <QuestionMarkCircleIconSolid />
+                ) : (
+                  <QuestionMarkCircleIconOutline />
+                )}
+              </div>
+            )}
           </div>
           <div className="flex flex-row mr-4">
             <div
@@ -117,10 +160,18 @@ function QuestionComponent({
               <div className="mr-4">3</div>
               <div>{renderJLPTContent(question.option_3)}</div>
             </div>
-            <QuestionMarkCircleIcon
-              className={explainClasses(3)}
-              onClick={handleShowExpain}
-            />
+            {showAnswer && question.explaination && question.answer === 3 && (
+              <div
+                onClick={handleShowExpain}
+                className="flex h-6 w-6 text-green-500 ml-2 cursor-pointer rounded-xl"
+              >
+                {showExplain ? (
+                  <QuestionMarkCircleIconSolid />
+                ) : (
+                  <QuestionMarkCircleIconOutline />
+                )}
+              </div>
+            )}
           </div>
           <div className="flex flex-row mr-4">
             <div
@@ -130,10 +181,18 @@ function QuestionComponent({
               <div className="mr-4">4</div>
               <div>{renderJLPTContent(question.option_4)}</div>
             </div>
-            <QuestionMarkCircleIcon
-              className={explainClasses(4)}
-              onClick={handleShowExpain}
-            />
+            {showAnswer && question.explaination && question.answer === 4 && (
+              <div
+                onClick={handleShowExpain}
+                className="flex h-6 w-6 text-green-500 ml-2 cursor-pointer rounded-xl"
+              >
+                {showExplain ? (
+                  <QuestionMarkCircleIconSolid />
+                ) : (
+                  <QuestionMarkCircleIconOutline />
+                )}
+              </div>
+            )}
           </div>
         </div>
         <div

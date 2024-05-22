@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { SettingFormProps } from '@/utils/types';
-import { LightBulbIcon } from '@heroicons/react/24/outline';
+import { BookmarkIcon, LightBulbIcon } from '@heroicons/react/24/outline';
 
 function SettingForm({
   score = 0,
   onShowHint,
   onShowAllAnswer,
   onShowLastChosen,
+  onShowBookmark,
 }: SettingFormProps) {
   const [showHint, setShowHint] = useState(false);
+  const [showBookmark, setShowBookmark] = useState(false);
   const [showAllAnswer, setShowAllAnswer] = useState(false);
   const [showLastChosen, setShowLastChosen] = useState(false);
   const [showScore, setShowScore] = useState(false);
@@ -16,6 +18,10 @@ function SettingForm({
   function handleChangeShowHint(): void {
     setShowHint(!showHint);
     onShowHint(!showHint);
+  }
+  function handleChangeShowBookmark(): void {
+    setShowBookmark(!showBookmark);
+    onShowBookmark(!showBookmark);
   }
 
   function handleChangeShowAllAnswer(): void {
@@ -54,6 +60,29 @@ function SettingForm({
           </div>
           <p className="text-xs font-normal text-gray-500">
             Click vào button đó để hiển thị đáp án
+          </p>
+        </div>
+      </div>
+      <div className="flex mb-2">
+        <div className="flex items-center h-5">
+          <input
+            aria-describedby="helper-checkbox-text"
+            type="checkbox"
+            value=""
+            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+            checked={showBookmark}
+            onChange={handleChangeShowBookmark}
+          ></input>
+        </div>
+        <div className="ms-2 text-sm">
+          <div className="flex flex-row items-center">
+            <label className="mr-2 font-medium text-gray-900">
+              Hiển thị bookmark
+            </label>
+            <BookmarkIcon className="w-4 h-4 text-blue-700" />
+          </div>
+          <p className="text-xs font-normal text-gray-500">
+            Bookmark lại những câu hỏi cần xem lại
           </p>
         </div>
       </div>

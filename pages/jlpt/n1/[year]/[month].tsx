@@ -24,6 +24,7 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
     [key: number]: number;
   }>({});
   const [settingShowHint, setSettingShowHint] = useState(false);
+  const [settingShowBookmark, setSettingShowBookmark] = useState(false);
   const [settingShowAllAnswer, setSettingShowAllAnswer] = useState(false);
 
   const handleOptionSelect = (
@@ -59,6 +60,9 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
 
   function handleShowHint(showHint: boolean): void {
     setSettingShowHint(showHint);
+  }
+  function handleShowBookmark(showBookmark: boolean): void {
+    setSettingShowBookmark(showBookmark);
   }
 
   function handleShowAllAnswer(showAllAnswer: boolean): void {
@@ -111,6 +115,7 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
               selectedOptions={selectedOptions}
               onOptionSelect={handleOptionSelect}
               showHint={settingShowHint}
+              showBookmark={settingShowBookmark}
               showAllAnswer={settingShowAllAnswer}
             />
           );
@@ -119,6 +124,7 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
       <SettingForm
         score={score}
         onShowHint={handleShowHint}
+        onShowBookmark={handleShowBookmark}
         onShowAllAnswer={handleShowAllAnswer}
         onShowLastChosen={handleShowLastChosen}
       />

@@ -46,6 +46,7 @@ const MondaiComponent: React.FC<MondaiComponentProps> = ({
   onOptionSelect,
   selectedOptions,
   showHint = false,
+  showBookmark = false,
   showAllAnswer = false,
 }) => {
   if (questions.length === 0) {
@@ -73,6 +74,7 @@ const MondaiComponent: React.FC<MondaiComponentProps> = ({
               selectedOptions={selectedOptions}
               initialShowAnswer={false}
               showHint={showHint}
+              showBookmark={showBookmark}
               showAllAnswer={showAllAnswer}
             />
           ))}

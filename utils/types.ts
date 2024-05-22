@@ -6,6 +6,7 @@ export interface MondaiComponentProps {
   onOptionSelect: (question_number: number, optionNumber: number) => void;
   selectedOptions?: { [key: number]: number };
   showHint?: boolean;
+  showBookmark?: boolean;
   showAllAnswer?: boolean;
 }
 
@@ -15,12 +16,14 @@ export interface QuestionComponentProps {
   selectedOptions?: { [key: number]: number };
   initialShowAnswer?: boolean;
   showHint?: boolean;
+  showBookmark?: boolean;
   showAllAnswer?: boolean;
 }
 
 export interface SettingFormProps {
   score: number;
   onShowHint: (showHint: boolean) => void;
+  onShowBookmark: (showBookmark: boolean) => void;
   onShowAllAnswer: (showAllAnswer: boolean) => void;
   onShowLastChosen: (showLastChosen: boolean) => void;
 }
