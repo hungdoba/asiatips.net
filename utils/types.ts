@@ -19,6 +19,7 @@ export interface QuestionComponentProps {
 }
 
 export interface SettingFormProps {
+  score: number;
   onShowHint: (showHint: boolean) => void;
   onShowAllAnswer: (showAllAnswer: boolean) => void;
   onShowLastChosen: (showLastChosen: boolean) => void;

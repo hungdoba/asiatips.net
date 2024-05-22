@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { renderJLPTContent } from '@/utils/render';
 import {
   LightBulbIcon,
   QuestionMarkCircleIcon,
 } from '@heroicons/react/24/outline';
-import { QuestionComponentProps } from '@/utils/types';
 import NumberBox from './NumberBox';
+import { useEffect, useState } from 'react';
+import { renderJLPTContent } from '@/utils/render';
+import { QuestionComponentProps } from '@/utils/types';
 
 function QuestionComponent({
   question,
