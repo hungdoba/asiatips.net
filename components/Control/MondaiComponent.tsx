@@ -108,6 +108,9 @@ const MondaiComponent: React.FC<MondaiComponentProps> = ({
                   onOptionSelect={handleOptionSelect}
                   selectedOptions={selectedOptions}
                   initialShowAnswer={false}
+                  showHint={showHint}
+                  showBookmark={showBookmark}
+                  showAllAnswer={showAllAnswer}
                 />
               ))}
           </div>

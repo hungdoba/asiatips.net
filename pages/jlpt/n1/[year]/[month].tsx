@@ -1,9 +1,9 @@
+import { useState } from 'react';
 import Cookies from 'js-cookie';
 import { prisma } from '@/utils/db';
 import SEO from '@/components/Layout/SEO';
 import Navbar from '@/components/Layout/Navbar';
 import Footer from '@/components/Layout/Footer';
-import React, { useState } from 'react';
 import SettingForm from '@/components/Form/SettingForm';
 import { jlpt_mondai, jlpt_question } from '@prisma/client';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
@@ -18,7 +18,7 @@ interface JLPTProps {
 }
 
 const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
-  const [score, setScore] = useState(121);
+  const [score, setScore] = useState(0);
   const cookieKey = `selectedOptions_${year}_${month}`;
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: number]: number;
@@ -36,6 +36,7 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
         ...prevSelectedOptions,
         [question_number]: optionNumber,
       };
+      calculateScore(updatedOptions);
       // Save updated options to cookies
       Cookies.set(cookieKey, JSON.stringify(updatedOptions));
       return updatedOptions;
@@ -82,6 +83,37 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
       }
       setSelectedOptions(resetOptions);
     }
+  }
+
+  function calculateScore(selectedOptions: any): void {
+    let score = 0;
+    const ones = [1, 2, 3, 5, 6];
+    const twos = [4, 6, 8, 9];
+    const threes = [7, 10, 11, 12, 13];
+
+    questions.forEach((question) => {
+      if (question.answer === selectedOptions[question.question_number]) {
+        const mondaiNumber = Math.floor(Number(question.mondai_number));
+        if (ones.includes(mondaiNumber)) {
+          score += 1;
+        } else if (threes.includes(mondaiNumber)) {
+          score += 3;
+        } else if (twos.includes(mondaiNumber)) {
+          score += 2;
+        }
+      }
+    });
+
+    // Special case, first question of mondai 7 is 2 points
+    let question = questions
+      .filter((question) => Number(question.mondai_number) === 7)
+      .sort((a, b) => a.question_number - b.question_number)[0];
+    // If this question is right then reduce final score to 1
+    if (question.answer === selectedOptions[question.question_number]) {
+      score = score - 1;
+    }
+
+    setScore(score);
   }
 
   return (
