@@ -1,16 +1,10 @@
-import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
 import { prisma } from '@/utils/db';
 import SEO from '@/components/Layout/SEO';
+import { jlpt_chokai } from '@prisma/client';
 import Navbar from '@/components/Layout/Navbar';
 import Footer from '@/components/Layout/Footer';
-import SettingForm from '@/components/Form/SettingForm';
-import { jlpt_chokai, jlpt_mondai, jlpt_question } from '@prisma/client';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import MondaiComponent from '@/components/Control/MondaiComponent';
-import ChokaiComponent from '@/components/Control/ChokaiComponent';
-import NumberBox from '@/components/Control/NumberBox';
-import AudioPlayer from '@/components/Control/AudioPlayer';
+import ChokaiComponent from '@/components/Control/MondaiChokaiComponent';
 
 // Component Props
 interface JLPTChokai {
@@ -18,23 +12,6 @@ interface JLPTChokai {
   year: string;
   month: string;
 }
-
-const getHeaderText = (mondai: number): string => {
-  switch (mondai) {
-    case 1:
-      return '問題1 では、まず質問を聞いてください。それから話を聞いて、問題用紙の(1)から(4)の中から、最もよいものをー つ選んでください。';
-    case 2:
-      return '問題2 では、まず質問を聞いてください。そのあと、問題用紙のせんたくしを読んでください。読む時間があります。それから話を聞いて、問題用紙の(1)から(4)の中から、最もよいものを一つ選んでください。';
-    case 3:
-      return '問題3 では、問題用紙に何も印刷されていません。この問題は、全体としてどんな内容かを聞く問題です。話の前に質問はありません。まず話を聞いてください。それから、しつもんとせんたくしを聞いて、(1)から(4)の中から、最もよいものを一つ選んでください。';
-    case 4:
-      return '問題4 では、問題用紙に何も印刷されていません。まず文を聞いてください。それから、それに対する返事を聞いて、(1)から(3)の中から、最もよいものを一つ選んでください。';
-    case 5:
-      return '問題5 では長めの話を聞きます。この問題には練習はありません。メモをとってもかまいません。';
-    default:
-      return '問題 未定義';
-  }
-};
 
 const JLPTChokai: NextPage<JLPTChokai> = ({ chokais, year, month }) => {
   let sortedChokais = chokais.sort(
@@ -47,20 +24,13 @@ const JLPTChokai: NextPage<JLPTChokai> = ({ chokais, year, month }) => {
   let mondai4 = sortedChokais.filter((chokai) => chokai.mondai_number === 4);
   let mondai5 = sortedChokais.filter((chokai) => chokai.mondai_number === 5);
 
-  const Options = ({ options }: any) => (
-    <div className="mx-2">
-      <div className="flex flex-wrap justify-between">
-        {['1', '2', '3', '4'].map((num) => (
-          <div key={num} className="flex flex-row mr-4">
-            <div className="flex mb-2 px-2 rounded-lg hover:cursor-pointer border">
-              <div className="mr-4">{num}</div>
-              <div>{options[`option_${num}`]}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  const handleOptionSelect = (
+    mondaiNumber: number,
+    questionNumber: number,
+    optionNumber: number
+  ) => {
+    console.log(mondaiNumber, questionNumber, optionNumber);
+  };
 
   return (
     <>
@@ -72,11 +42,26 @@ const JLPTChokai: NextPage<JLPTChokai> = ({ chokais, year, month }) => {
       />
       <Navbar />
       <div className="no-select flex flex-col mx-4 mt-20 text-wrap lg:max-w-4xl lg:mx-auto underline-offset-4">
-        <ChokaiComponent chokais={mondai1} />
-        <ChokaiComponent chokais={mondai2} />
-        <ChokaiComponent chokais={mondai3} />
-        <ChokaiComponent chokais={mondai4} />
-        <ChokaiComponent chokais={mondai5} />
+        <ChokaiComponent
+          chokais={mondai1}
+          onOptionSelect={handleOptionSelect}
+        />
+        <ChokaiComponent
+          chokais={mondai2}
+          onOptionSelect={handleOptionSelect}
+        />
+        <ChokaiComponent
+          chokais={mondai3}
+          onOptionSelect={handleOptionSelect}
+        />
+        <ChokaiComponent
+          chokais={mondai4}
+          onOptionSelect={handleOptionSelect}
+        />
+        <ChokaiComponent
+          chokais={mondai5}
+          onOptionSelect={handleOptionSelect}
+        />
       </div>
       <div className="no-select flex flex-col mx-4 mt-20 text-wrap lg:max-w-4xl lg:mx-auto underline-offset-4"></div>
       <Footer />

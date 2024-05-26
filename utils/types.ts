@@ -1,13 +1,37 @@
 import { jlpt_chokai, jlpt_mondai, jlpt_question } from '@prisma/client';
 
+export interface QuestionChokaiComponentProps {
+  chokai: jlpt_chokai;
+  onOptionSelect: (
+    mondaiNumber: number,
+    questionNumber: number,
+    optionNumber: number
+  ) => void;
+  selectedOptions?: { [key: number]: number };
+  initialShowAnswer?: boolean;
+  showHint?: boolean;
+  showBookmark?: boolean;
+  showAllAnswer?: boolean;
+}
+
 export interface ChokaiComponentProps {
   chokais: jlpt_chokai[];
+  onOptionSelect: (
+    mondaiNumber: number,
+    questionNumber: number,
+    optionNumber: number
+  ) => void;
+  selectedOptions?: { [key: number]: number };
+  initialShowAnswer?: boolean;
+  showHint?: boolean;
+  showBookmark?: boolean;
+  showAllAnswer?: boolean;
 }
 
 export interface MondaiComponentProps {
   mondais: jlpt_mondai[];
   questions: jlpt_question[];
-  onOptionSelect: (question_number: number, optionNumber: number) => void;
+  onOptionSelect: (questionNumber: number, optionNumber: number) => void;
   selectedOptions?: { [key: number]: number };
   showHint?: boolean;
   showBookmark?: boolean;
@@ -16,7 +40,7 @@ export interface MondaiComponentProps {
 
 export interface QuestionComponentProps {
   question: jlpt_question;
-  onOptionSelect: (question_number: number, optionNumber: number) => void;
+  onOptionSelect: (questionNumber: number, optionNumber: number) => void;
   selectedOptions?: { [key: number]: number };
   initialShowAnswer?: boolean;
   showHint?: boolean;
