@@ -1,4 +1,8 @@
-import { jlpt_mondai, jlpt_question } from '@prisma/client';
+import { jlpt_chokai, jlpt_mondai, jlpt_question } from '@prisma/client';
+
+export interface ChokaiComponentProps {
+  chokais: jlpt_chokai[];
+}
 
 export interface MondaiComponentProps {
   mondais: jlpt_mondai[];
