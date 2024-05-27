@@ -8,6 +8,10 @@ import Footer from '@/components/Layout/Footer';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import MondaiChokaiComponent from '@/components/Control/MondaiChokaiComponent';
 import SettingChokaiForm from '@/components/Form/SettingChokaiForm';
+import Link from 'next/link';
+import { DocumentTextIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // Component Props
 interface JLPTChokai {
@@ -17,6 +21,7 @@ interface JLPTChokai {
 }
 
 const JLPTChokai: NextPage<JLPTChokai> = ({ chokais, year, month }) => {
+  const { t } = useTranslation();
   const [score, setScore] = useState(0);
 
   const cookieKey = `selected_options_chokai_${year}_${month}`;
@@ -173,6 +178,14 @@ const JLPTChokai: NextPage<JLPTChokai> = ({ chokais, year, month }) => {
             />
           );
         })}
+        <Link href={`/jlpt/n1/${year}/${month}`}>
+          <div className="flex flex-row justify-end mb-4">
+            <div className="flex flex-row p-2 rounded-lg border border-blue-500 hover:cursor-pointer hover:bg-blue-500">
+              <p className="mr-4">{t('button:nextRead')}</p>
+              <DocumentTextIcon className="w-6 h-6" />
+            </div>
+          </div>
+        </Link>
       </div>
       <SettingChokaiForm
         score={score}
@@ -210,6 +223,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const { year, month } = context.params as { year: string; month: string };
 
+  const locale = context.locale;
   try {
     const chokais = await prisma.jlpt_chokai.findMany({
       where: {
@@ -226,6 +240,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         chokais: JSON.parse(JSON.stringify(chokais)), // Ensuring the data is serializable
         year,
         month,
+        ...(await serverSideTranslations(locale ?? '')),
       },
     };
   } catch (error) {

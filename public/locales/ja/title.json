@@ -1,4 +1,6 @@
 {
+  "jlptExams": "日本語能力試験 N1 各年",
+  "jlptOtherYearsNote": "N5~N2も必要な場合は、フィードバックでご連絡ください。",
   "article": "記事",
   "newPostFollow": "新しい投稿をフォローする",
   "mailNotifyFollow": "メール通知を受け取る",

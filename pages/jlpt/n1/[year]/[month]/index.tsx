@@ -8,6 +8,10 @@ import SettingForm from '@/components/Form/SettingForm';
 import { jlpt_mondai, jlpt_question } from '@prisma/client';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import MondaiComponent from '@/components/Control/MondaiComponent';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { SpeakerWaveIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
 
 // Component Props
 interface JLPTProps {
@@ -18,6 +22,7 @@ interface JLPTProps {
 }
 
 const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
+  const { t } = useTranslation();
   const [score, setScore] = useState(0);
   const cookieKey = `selected_options_${year}_${month}`;
   const [selectedOptions, setSelectedOptions] = useState<{
@@ -177,6 +182,14 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
             />
           );
         })}
+        <Link href={`/jlpt/n1/${year}/${month}/chokai`}>
+          <div className="flex flex-row justify-end mb-4">
+            <div className="flex flex-row p-2 rounded-lg border border-blue-500 hover:cursor-pointer hover:bg-blue-500">
+              <p className="mr-4">{t('button:nextListen')}</p>
+              <SpeakerWaveIcon className="w-6 h-6" />
+            </div>
+          </div>
+        </Link>
       </div>
       <SettingForm
         score={score}
@@ -234,12 +247,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
       },
     });
 
+    const locale = context.locale;
+
     return {
       props: {
         mondais: JSON.parse(JSON.stringify(mondais)), // Ensuring the data is serializable
         questions: JSON.parse(JSON.stringify(questions)),
         year,
         month,
+        ...(await serverSideTranslations(locale ?? '')),
       },
     };
   } catch (error) {

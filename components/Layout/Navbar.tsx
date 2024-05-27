@@ -9,7 +9,8 @@ import LanguageToggle from '../Common/LanguageToggle';
 
 const NAVIGATION_LINKS = [
   { href: '/tips', label: 'link:tips' },
-  { href: '/travel', label: 'link:travel' },
+  { href: '/jlpt', label: 'link:jlpt' },
+  // { href: '/travel', label: 'link:travel' },
   { href: '/gallery', label: 'link:gallery' },
   { href: '/contact', label: 'link:contact' },
 ];
