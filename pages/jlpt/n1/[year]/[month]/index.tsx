@@ -19,7 +19,7 @@ interface JLPTProps {
 
 const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
   const [score, setScore] = useState(0);
-  const cookieKey = `selectedOptions_${year}_${month}`;
+  const cookieKey = `selected_options_${year}_${month}`;
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: number]: number;
   }>({});

@@ -1,5 +1,6 @@
 import { ChokaiComponentProps } from '@/utils/types';
 import QuestionChokaiComponent from './QuestionChokaiComponent';
+import Question5ChokaiComponent from './Question5ChokaiComponent';
 
 const getHeaderText = (mondai: number): string => {
   switch (mondai) {
@@ -24,7 +25,8 @@ const MondaiChokaiComponent: React.FC<ChokaiComponentProps> = ({
   selectedOptions,
   showHint = true,
   showBookmark = true,
-  showAllAnswer = true,
+  showAllAnswer = false,
+  showButtonScript = false,
 }) => {
   if (chokais.length === 0) {
     return <p>No questions available for this mondai.</p>;
@@ -42,19 +44,43 @@ const MondaiChokaiComponent: React.FC<ChokaiComponentProps> = ({
   return (
     <div className="flex flex-col mb-8 md:mt-8">
       <h2 className="mb-4">{getHeaderText(mondai_number)}</h2>
+      {mondai_number === 5 && (
+        <p className="ml-2">
+          {` 1番、${
+            chokais.length > 2 ? '2番、' : ''
+          }問題用紙に何も印刷されていません。まず話を聞いてください。それから、質問とせんたくしを聞いて、(1)から (4)の中から、最もよいものを一つ選んでください。 `}
+        </p>
+      )}
+      ;
       <div>
-        {chokais.map((chokai, index) => (
-          <QuestionChokaiComponent
-            key={index}
-            chokai={chokai}
-            onOptionSelect={handleOptionClick}
-            selectedOptions={selectedOptions}
-            initialShowAnswer={false}
-            showHint={showHint}
-            showBookmark={showBookmark}
-            showAllAnswer={showAllAnswer}
-          />
-        ))}
+        {chokais.map((chokai, index) =>
+          chokai.mondai_number === 5 &&
+          chokai.question_number === chokais.length ? (
+            <Question5ChokaiComponent
+              key={index}
+              chokai={chokai}
+              onOptionSelect={handleOptionClick}
+              selectedOptions={selectedOptions}
+              initialShowAnswer={false}
+              showHint={showHint}
+              showBookmark={showBookmark}
+              showAllAnswer={showAllAnswer}
+              showButtonScript={showButtonScript}
+            />
+          ) : (
+            <QuestionChokaiComponent
+              key={index}
+              chokai={chokai}
+              onOptionSelect={handleOptionClick}
+              selectedOptions={selectedOptions}
+              initialShowAnswer={false}
+              showHint={showHint}
+              showBookmark={showBookmark}
+              showAllAnswer={showAllAnswer}
+              showButtonScript={showButtonScript}
+            />
+          )
+        )}
       </div>
     </div>
   );

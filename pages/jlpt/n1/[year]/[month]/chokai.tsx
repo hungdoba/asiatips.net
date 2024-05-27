@@ -1,10 +1,12 @@
+import Cookies from 'js-cookie';
+import { useState } from 'react';
 import { prisma } from '@/utils/db';
 import SEO from '@/components/Layout/SEO';
 import { jlpt_chokai } from '@prisma/client';
 import Navbar from '@/components/Layout/Navbar';
 import Footer from '@/components/Layout/Footer';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import ChokaiComponent from '@/components/Control/MondaiChokaiComponent';
+import MondaiChokaiComponent from '@/components/Control/MondaiChokaiComponent';
 
 // Component Props
 interface JLPTChokai {
@@ -14,22 +16,45 @@ interface JLPTChokai {
 }
 
 const JLPTChokai: NextPage<JLPTChokai> = ({ chokais, year, month }) => {
+  const cookieKey = `selected_options_chokai_${year}_${month}`;
+  const compositeKey = (mondaiNumber: number, questionNumber: number) =>
+    mondaiNumber * 100 + questionNumber;
+
   let sortedChokais = chokais.sort(
     (a, b) => a.question_number - b.question_number
   );
 
-  let mondai1 = sortedChokais.filter((chokai) => chokai.mondai_number === 1);
-  let mondai2 = sortedChokais.filter((chokai) => chokai.mondai_number === 2);
-  let mondai3 = sortedChokais.filter((chokai) => chokai.mondai_number === 3);
-  let mondai4 = sortedChokais.filter((chokai) => chokai.mondai_number === 4);
-  let mondai5 = sortedChokais.filter((chokai) => chokai.mondai_number === 5);
+  const [selectedOptions, setSelectedOptions] = useState<{
+    [key: number]: number;
+  }>({});
+
+  const [settingShowHint, setSettingShowHint] = useState(true);
+  const [settingShowBookmark, setSettingShowBookmark] = useState(true);
+  const [settingShowAllAnswer, setSettingShowAllAnswer] = useState(false);
+  const [settingShowButtonScript, setSettingShowButtonScript] = useState(true);
+
+  const mondaiComponents = [
+    { Component: MondaiChokaiComponent, mondai_number: 1 },
+    { Component: MondaiChokaiComponent, mondai_number: 2 },
+    { Component: MondaiChokaiComponent, mondai_number: 3 },
+    { Component: MondaiChokaiComponent, mondai_number: 4 },
+    { Component: MondaiChokaiComponent, mondai_number: 5 },
+  ];
 
   const handleOptionSelect = (
     mondaiNumber: number,
     questionNumber: number,
     optionNumber: number
   ) => {
-    console.log(mondaiNumber, questionNumber, optionNumber);
+    setSelectedOptions((prevSelectedOptions) => {
+      const updatedOptions = {
+        ...prevSelectedOptions,
+        [compositeKey(mondaiNumber, questionNumber)]: optionNumber,
+      };
+      // Save updated options to cookies
+      Cookies.set(cookieKey, JSON.stringify(updatedOptions));
+      return updatedOptions;
+    });
   };
 
   return (
@@ -42,26 +67,23 @@ const JLPTChokai: NextPage<JLPTChokai> = ({ chokais, year, month }) => {
       />
       <Navbar />
       <div className="no-select flex flex-col mx-4 mt-20 text-wrap lg:max-w-4xl lg:mx-auto underline-offset-4">
-        <ChokaiComponent
-          chokais={mondai1}
-          onOptionSelect={handleOptionSelect}
-        />
-        <ChokaiComponent
-          chokais={mondai2}
-          onOptionSelect={handleOptionSelect}
-        />
-        <ChokaiComponent
-          chokais={mondai3}
-          onOptionSelect={handleOptionSelect}
-        />
-        <ChokaiComponent
-          chokais={mondai4}
-          onOptionSelect={handleOptionSelect}
-        />
-        <ChokaiComponent
-          chokais={mondai5}
-          onOptionSelect={handleOptionSelect}
-        />
+        {mondaiComponents.map(({ Component, mondai_number }) => {
+          let chokais = sortedChokais.filter(
+            (chokai) => chokai.mondai_number === mondai_number
+          );
+          return (
+            <Component
+              key={mondai_number}
+              chokais={chokais}
+              selectedOptions={selectedOptions}
+              onOptionSelect={handleOptionSelect}
+              showHint={settingShowHint}
+              showBookmark={settingShowBookmark}
+              showAllAnswer={settingShowAllAnswer}
+              showButtonScript={settingShowButtonScript}
+            />
+          );
+        })}
       </div>
       <div className="no-select flex flex-col mx-4 mt-20 text-wrap lg:max-w-4xl lg:mx-auto underline-offset-4"></div>
       <Footer />

@@ -10,8 +10,10 @@ export interface QuestionChokaiComponentProps {
   selectedOptions?: { [key: number]: number };
   initialShowAnswer?: boolean;
   showHint?: boolean;
+  showScript?: boolean;
   showBookmark?: boolean;
   showAllAnswer?: boolean;
+  showButtonScript?: boolean;
 }
 
 export interface ChokaiComponentProps {
@@ -26,6 +28,7 @@ export interface ChokaiComponentProps {
   showHint?: boolean;
   showBookmark?: boolean;
   showAllAnswer?: boolean;
+  showButtonScript?: boolean;
 }
 
 export interface MondaiComponentProps {
