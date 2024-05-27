@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+// import { useTranslation } from 'next-i18next';
 
 function LanguageToggle() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const router = useRouter();
   const [lang, setLang] = useState(router?.locale || 'en'); // Use state to track the language
 

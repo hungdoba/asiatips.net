@@ -204,20 +204,25 @@ const JLPTChokai: NextPage<JLPTChokai> = ({ chokais, year, month }) => {
 export default JLPTChokai;
 
 // Static Paths
-export const getStaticPaths: GetStaticPaths = async () => {
+export async function getStaticPaths({ locales }: { locales: any }) {
   const times = await prisma.jlpt_mondai.findMany({
     select: { year: true, month: true },
   });
 
-  const paths = times.map((time) => ({
-    params: { year: time.year.toString(), month: time.month.toString() },
-  }));
+  const paths = times.flatMap((time) => {
+    return locales.map((locale: any) => {
+      return {
+        params: { year: time.year.toString(), month: time.month.toString() },
+        locale: locale,
+      };
+    });
+  });
 
   return {
     paths,
     fallback: false,
   };
-};
+}
 
 // Static Props
 export const getStaticProps: GetStaticProps = async (context) => {

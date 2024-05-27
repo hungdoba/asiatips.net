@@ -7,12 +7,13 @@ import Tags from '@/components/Common/Tags';
 import Navbar from '@/components/Layout/Navbar';
 import Footer from '@/components/Layout/Footer';
 import Subscribe from '@/components/Layout/Subscribe';
-import { getSession } from 'next-auth/react';
+// import { getSession } from 'next-auth/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { DocumentTextIcon, SpeakerWaveIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const session = await getSession(context);
+  // const session = await getSession(context);
   const times = await prisma.jlpt_mondai.findMany({
     orderBy: [{ year: 'asc' }, { month: 'asc' }],
     select: {
@@ -34,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   return {
     props: {
       times: uniqueTimes,
-      session,
+      // session,
       ...(await serverSideTranslations(locale)),
     },
   };
@@ -70,7 +71,7 @@ function HomePage({ times }: HomePageProps) {
                 {times &&
                   times.map((time, index) => (
                     <li key={index}>
-                      <a
+                      <Link
                         href={`/jlpt/n1/${time.year}/${time.month}`}
                         className="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow "
                       >
@@ -83,7 +84,7 @@ function HomePage({ times }: HomePageProps) {
                         <span className="inline-flex items-center justify-center px-2 py-0.5 ms-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">
                           {t('button:startTest')}
                         </span>
-                      </a>
+                      </Link>
                     </li>
                   ))}
               </ul>
