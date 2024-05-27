@@ -53,6 +53,7 @@ export interface QuestionComponentProps {
 
 export interface SettingFormProps {
   score: number;
+  totalScore: number;
   onShowHint: (showHint: boolean) => void;
   onShowBookmark: (showBookmark: boolean) => void;
   onShowAllAnswer: (showAllAnswer: boolean) => void;

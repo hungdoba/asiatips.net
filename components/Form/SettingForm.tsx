@@ -4,6 +4,7 @@ import { BookmarkIcon, LightBulbIcon } from '@heroicons/react/24/outline';
 
 function SettingForm({
   score = 0,
+  totalScore = 0,
   onShowHint,
   onShowAllAnswer,
   onShowLastChosen,
@@ -147,11 +148,11 @@ function SettingForm({
           <div className="flex flex-row items-center">
             <label className="mr-2 font-medium text-gray-900">
               {`
-              Tổng điểm: ${showScore ? score : '---'}/180
+              Tổng điểm: ${showScore ? score : '---'}/${totalScore}
               `}
             </label>
             <div>{`${
-              showScore ? (score > 80 ? '(đậu)' : '(trượt)') : '(---)'
+              showScore ? (score > 81 ? '(đậu)' : '(trượt)') : '(---)'
             }`}</div>
           </div>
           <p className="text-xs font-normal text-gray-500">

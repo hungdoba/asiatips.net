@@ -92,23 +92,19 @@ const JLPTChokai: NextPage<JLPTChokai> = ({ chokais, year, month }) => {
   }
 
   function calculateTotalScore(): number {
-    let mondai1s = chokais.filter(
-      (chokai) => chokai.mondai_number === 1
-    ).length;
-    let mondai2s = chokais.filter(
-      (chokai) => chokai.mondai_number === 2
-    ).length;
-    let mondai3s = chokais.filter(
-      (chokai) => chokai.mondai_number === 3
-    ).length;
-    let mondai4s = chokais.filter(
-      (chokai) => chokai.mondai_number === 4
-    ).length;
-    let mondai5s = chokais.filter(
-      (chokai) => chokai.mondai_number === 5
-    ).length;
+    const mondaiCounts = chokais.reduce((acc, chokai) => {
+      acc[chokai.mondai_number] = (acc[chokai.mondai_number] || 0) + 1;
+      return acc;
+    }, {} as Record<number, number>);
 
-    return mondai1s * 2 + mondai2s + mondai3s * 2 + mondai4s + mondai5s * 3 + 3;
+    return (
+      (mondaiCounts[1] || 0) * 2 +
+      (mondaiCounts[2] || 0) +
+      (mondaiCounts[3] || 0) * 2 +
+      (mondaiCounts[4] || 0) +
+      (mondaiCounts[5] || 0) * 3 +
+      3
+    );
   }
 
   function calculateScore(selectedOptions: any): void {

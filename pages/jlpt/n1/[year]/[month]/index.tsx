@@ -43,6 +43,31 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
     });
   };
 
+  function calculateTotalScore(): number {
+    const mondaiCounts = questions.reduce((acc, chokai) => {
+      acc[Number(chokai.mondai_number)] =
+        (acc[Number(chokai.mondai_number)] || 0) + 1;
+      return acc;
+    }, {} as Record<number, number>);
+
+    return (
+      (mondaiCounts[1] || 0) +
+      (mondaiCounts[2] || 0) +
+      (mondaiCounts[3] || 0) +
+      (mondaiCounts[4] || 0) * 2 +
+      (mondaiCounts[5] || 0) +
+      (mondaiCounts[6] || 0) +
+      (mondaiCounts[7] || 0) * 3 +
+      (mondaiCounts[8] || 0) * 2 +
+      (mondaiCounts[9] || 0) * 2 +
+      (mondaiCounts[10] || 0) * 3 +
+      (mondaiCounts[11] || 0) * 3 +
+      (mondaiCounts[12] || 0) * 3 +
+      (mondaiCounts[13] || 0) * 3 -
+      1
+    );
+  }
+
   const mondaiComponents = [
     { Component: MondaiComponent, number: 1 },
     { Component: MondaiComponent, number: 2 },
@@ -155,6 +180,7 @@ const JLPTFull: NextPage<JLPTProps> = ({ mondais, questions, year, month }) => {
       </div>
       <SettingForm
         score={score}
+        totalScore={calculateTotalScore()}
         onShowHint={handleShowHint}
         onShowBookmark={handleShowBookmark}
         onShowAllAnswer={handleShowAllAnswer}
