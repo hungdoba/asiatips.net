@@ -7,6 +7,7 @@ import Navbar from '@/components/Layout/Navbar';
 import Footer from '@/components/Layout/Footer';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import MondaiChokaiComponent from '@/components/Control/MondaiChokaiComponent';
+import SettingChokaiForm from '@/components/Form/SettingChokaiForm';
 
 // Component Props
 interface JLPTChokai {
@@ -16,6 +17,8 @@ interface JLPTChokai {
 }
 
 const JLPTChokai: NextPage<JLPTChokai> = ({ chokais, year, month }) => {
+  const [score, setScore] = useState(0);
+
   const cookieKey = `selected_options_chokai_${year}_${month}`;
   const compositeKey = (mondaiNumber: number, questionNumber: number) =>
     mondaiNumber * 100 + questionNumber;
@@ -28,10 +31,10 @@ const JLPTChokai: NextPage<JLPTChokai> = ({ chokais, year, month }) => {
     [key: number]: number;
   }>({});
 
-  const [settingShowHint, setSettingShowHint] = useState(true);
-  const [settingShowBookmark, setSettingShowBookmark] = useState(true);
+  const [settingShowHint, setSettingShowHint] = useState(false);
+  const [settingShowBookmark, setSettingShowBookmark] = useState(false);
   const [settingShowAllAnswer, setSettingShowAllAnswer] = useState(false);
-  const [settingShowButtonScript, setSettingShowButtonScript] = useState(true);
+  const [settingShowButtonScript, setSettingShowButtonScript] = useState(false);
 
   const mondaiComponents = [
     { Component: MondaiChokaiComponent, mondai_number: 1 },
@@ -51,11 +54,101 @@ const JLPTChokai: NextPage<JLPTChokai> = ({ chokais, year, month }) => {
         ...prevSelectedOptions,
         [compositeKey(mondaiNumber, questionNumber)]: optionNumber,
       };
+      calculateScore(updatedOptions);
       // Save updated options to cookies
       Cookies.set(cookieKey, JSON.stringify(updatedOptions));
       return updatedOptions;
     });
   };
+
+  function handleShowHint(showHint: boolean): void {
+    setSettingShowHint(showHint);
+  }
+  function handleShowBookmark(showBookmark: boolean): void {
+    setSettingShowBookmark(showBookmark);
+  }
+
+  function handleShowAllAnswer(showAllAnswer: boolean): void {
+    setSettingShowAllAnswer(showAllAnswer);
+  }
+
+  function handleShowButtonScript(showButtonScript: boolean): void {
+    setSettingShowButtonScript(showButtonScript);
+  }
+
+  function handleShowLastChosen(showLastChosen: boolean): void {
+    if (showLastChosen) {
+      const initialSelectedOptions = Cookies.get(cookieKey);
+      if (initialSelectedOptions) {
+        setSelectedOptions(JSON.parse(initialSelectedOptions));
+      }
+    } else {
+      const resetOptions: { [key: number]: number } = {};
+      for (let i = 1; i < chokais.length; i++) {
+        resetOptions[i] = 0;
+      }
+      setSelectedOptions(resetOptions);
+    }
+  }
+
+  function calculateTotalScore(): number {
+    let mondai1s = chokais.filter(
+      (chokai) => chokai.mondai_number === 1
+    ).length;
+    let mondai2s = chokais.filter(
+      (chokai) => chokai.mondai_number === 2
+    ).length;
+    let mondai3s = chokais.filter(
+      (chokai) => chokai.mondai_number === 3
+    ).length;
+    let mondai4s = chokais.filter(
+      (chokai) => chokai.mondai_number === 4
+    ).length;
+    let mondai5s = chokais.filter(
+      (chokai) => chokai.mondai_number === 5
+    ).length;
+
+    return mondai1s * 2 + mondai2s + mondai3s * 2 + mondai4s + mondai5s * 3 + 3;
+  }
+
+  function calculateScore(selectedOptions: any): void {
+    let score = 0;
+    const ones = new Set([2, 4]);
+    const twos = new Set([1, 3]);
+    const threes = new Set([5]);
+
+    sortedChokais.forEach((question) => {
+      const mondaiNumber = Math.floor(Number(question.mondai_number));
+      const questionKey =
+        question.mondai_number * 100 + question.question_number;
+
+      if (question.answer === selectedOptions[questionKey]) {
+        if (ones.has(mondaiNumber)) {
+          score += 1;
+        } else if (twos.has(mondaiNumber)) {
+          score += 2;
+        } else if (threes.has(mondaiNumber)) {
+          score += 3;
+        }
+      }
+    });
+
+    // Special final question
+    const finalQuestion = chokais
+      .filter((chokai) => chokai.mondai_number === 5)
+      .sort((a, b) => a.question_number - b.question_number)
+      .pop();
+
+    if (finalQuestion) {
+      const finalQuestionKey =
+        finalQuestion.mondai_number * 100 + finalQuestion.question_number + 1;
+      if (Number(finalQuestion.note) === selectedOptions[finalQuestionKey]) {
+        score += 3;
+      }
+    }
+
+    setScore(score);
+  }
 
   return (
     <>
@@ -85,7 +178,15 @@ const JLPTChokai: NextPage<JLPTChokai> = ({ chokais, year, month }) => {
           );
         })}
       </div>
-      <div className="no-select flex flex-col mx-4 mt-20 text-wrap lg:max-w-4xl lg:mx-auto underline-offset-4"></div>
+      <SettingChokaiForm
+        score={score}
+        totalScore={calculateTotalScore()}
+        onShowHint={handleShowHint}
+        onShowBookmark={handleShowBookmark}
+        onShowAllAnswer={handleShowAllAnswer}
+        onShowLastChosen={handleShowLastChosen}
+        onShowButtonScript={handleShowButtonScript}
+      />
       <Footer />
     </>
   );
