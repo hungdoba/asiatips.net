@@ -1,0 +1,14 @@
+{
+  "showScript": "スクリプトを表示",
+  "showScriptDetail": "スクリプトを表示するボタンを表示",
+  "showHint": "ヒントを表示",
+  "showHintDetail": "答えを見るには電球のボタンをクリック",
+  "showBookmark": "ブックマークを表示",
+  "showBookmarkDetail": "後で見返したい質問をブックマークする",
+  "showAllResult": "すべての答えを表示",
+  "showAllResultDetail": "すべての正しい答えが強調されます",
+  "showSelectedResult": "選択した答えを表示",
+  "showSelectedResultDetail": "選択したすべての回答を表示または削除する",
+  "finalScore": "総得点",
+  "finalScoreDetail": "あなたが獲得した点数（参考用のみ）"
+}

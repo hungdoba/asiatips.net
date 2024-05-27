@@ -1,0 +1,14 @@
+{
+  "showScript": "Hiển thị script",
+  "showScriptDetail": "Hiển thị nút hiển thị script",
+  "showHint": "Hiển thị gợi ý",
+  "showHintDetail": "Nhấn vào nút bóng đèn để xem câu trả lời",
+  "showBookmark": "Hiển thị dấu trang",
+  "showBookmarkDetail": "Đánh dấu câu hỏi bạn muốn xem lại",
+  "showAllResult": "Hiển thị tất cả đáp án",
+  "showAllResultDetail": "Tất cả đáp án đúng sẽ được khoanh lại",
+  "showSelectedResult": "Hiển thị đáp án đã chọn",
+  "showSelectedResultDetail": "Hiển thị hoặc xóa tất cả các câu trả lời đã chọn",
+  "finalScore": "Tổng điểm",
+  "finalScoreDetail": "Số điểm bạn đạt được (Chỉ mang tính chất tham khảo)"
+}

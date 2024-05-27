@@ -52,22 +52,14 @@ export interface QuestionComponentProps {
 }
 
 export interface SettingFormProps {
+  isChokai?: boolean;
   score: number;
   totalScore: number;
   onShowHint: (showHint: boolean) => void;
   onShowBookmark: (showBookmark: boolean) => void;
   onShowAllAnswer: (showAllAnswer: boolean) => void;
   onShowLastChosen: (showLastChosen: boolean) => void;
-}
-
-export interface SettingChokaiFormProps {
-  score: number;
-  totalScore: number;
-  onShowHint: (showHint: boolean) => void;
-  onShowBookmark: (showBookmark: boolean) => void;
-  onShowAllAnswer: (showAllAnswer: boolean) => void;
-  onShowLastChosen: (showLastChosen: boolean) => void;
-  onShowButtonScript: (showButtonScript: boolean) => void;
+  onShowButtonScript?: (showButtonScript: boolean) => void;
 }
 
 export interface ImageProps {

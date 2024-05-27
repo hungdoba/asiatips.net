@@ -5,13 +5,13 @@ import SEO from '@/components/Layout/SEO';
 import { jlpt_chokai } from '@prisma/client';
 import Navbar from '@/components/Layout/Navbar';
 import Footer from '@/components/Layout/Footer';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import MondaiChokaiComponent from '@/components/Control/MondaiChokaiComponent';
-import SettingChokaiForm from '@/components/Form/SettingChokaiForm';
 import Link from 'next/link';
 import { DocumentTextIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import SettingForm from '@/components/Form/SettingForm';
 
 // Component Props
 interface JLPTChokai {
@@ -187,7 +187,8 @@ const JLPTChokai: NextPage<JLPTChokai> = ({ chokais, year, month }) => {
           </div>
         </Link>
       </div>
-      <SettingChokaiForm
+      <SettingForm
+        isChokai={true}
         score={score}
         totalScore={calculateTotalScore()}
         onShowHint={handleShowHint}
