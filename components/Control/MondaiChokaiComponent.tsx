@@ -51,7 +51,6 @@ const MondaiChokaiComponent: React.FC<ChokaiComponentProps> = ({
           }問題用紙に何も印刷されていません。まず話を聞いてください。それから、質問とせんたくしを聞いて、(1)から (4)の中から、最もよいものを一つ選んでください。 `}
         </p>
       )}
-      ;
       <div>
         {chokais.map((chokai, index) =>
           chokai.mondai_number === 5 &&
