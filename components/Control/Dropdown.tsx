@@ -10,7 +10,7 @@ const Dropdown: React.FC<{
       <select
         onChange={handleSelect}
         value={selectedValue || ''}
-        className="w-full border border-gray-300 rounded-md px-3 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        className="w-full  border border-gray-300 rounded-md px-3 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
       >
         {options.map((option, index) => (
           <option key={index} value={option}>
